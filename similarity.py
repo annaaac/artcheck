@@ -15,20 +15,14 @@ TEST_IMAGES_PATH = Path("test_images")
 ORIGINAL_PATH = TEST_IMAGES_PATH / "original.png"
 
 
-def _to_rgb(image: Image.Image) -> Image.Image:
-    if image.mode != "RGB":
-        image = image.convert("RGB")
-    return image
-
-
-def perceptual_hash_distance(image_a: Image.Image, image_b: Image.Image) -> int:
+def phash_distance(image_a: Image.Image, image_b: Image.Image) -> int:
     hash_a = imagehash.phash(_to_rgb(image_a))
     hash_b = imagehash.phash(_to_rgb(image_b))
     return hash_a - hash_b
 
 
 def load_clip_model():
-    print("Loading CLIP model (first run will download weights, ~350MB)...")
+    print("LOADING CLIP MODEL...")
     model, _, preprocess = open_clip.create_model_and_transforms(
         "ViT-B-32", pretrained="openai"
     )
@@ -43,22 +37,22 @@ def get_clip_embedding(model, preprocess, image: Image.Image):
     return embedding
 
 
-def clip_cosine_similarity(model, preprocess, image_a, image_b) -> float:
-    emb_a = get_clip_embedding(model, preprocess, image_a)
-    emb_b = get_clip_embedding(model, preprocess, image_b)
-    return F.cosine_similarity(emb_a, emb_b).item()
-
-
 def clip_cosine_similarity_from_embeddings(embedding_a, embedding_b) -> float:
-    # embedding_a, embedding_b are numpy arrays (from bytes_to_embedding)
-    a = torch.from_numpy(embedding_a).flatten().unsqueeze(0)
-    b = torch.from_numpy(embedding_b).flatten().unsqueeze(0)
+    # accepts numpy arrays OR tensors, in any shape - normalizes both before comparing
+    a = torch.as_tensor(embedding_a).flatten().unsqueeze(0)
+    b = torch.as_tensor(embedding_b).flatten().unsqueeze(0)
     return F.cosine_similarity(a, b).item()
 
 
+def clip_cosine_similarity_from_images(model, preprocess, image_a, image_b) -> float:
+    emb_a = get_clip_embedding(model, preprocess, image_a)
+    emb_b = get_clip_embedding(model, preprocess, image_b)
+    return clip_cosine_similarity_from_embeddings(emb_a, emb_b)
+
+
 def compare_images(image_a: Image.Image, image_b: Image.Image, model, preprocess) -> tuple[bool, int]:
-    phash_dist = perceptual_hash_distance(image_a, image_b)
-    clip_sim = clip_cosine_similarity(model, preprocess, image_a, image_b)
+    phash_dist = phash_distance(image_a, image_b)
+    clip_sim = clip_cosine_similarity_from_images(model, preprocess, image_a, image_b)
 
     is_similar = bool(phash_dist <= PHASH_SIMILARITY_THRESHOLD or clip_sim >= CLIP_SIMILARITY_THRESHOLD)
     similarity_score = int(clip_sim * 100)
@@ -87,6 +81,12 @@ def embedding_to_bytes(embedding_tensor) -> bytes:
 
 def bytes_to_embedding(data: bytes):
     return numpy.frombuffer(data, dtype=numpy.float32)
+
+
+def _to_rgb(image: Image.Image) -> Image.Image:
+    if image.mode != "RGB":
+        image = image.convert("RGB")
+    return image
 
 
 if __name__ == "__main__":
