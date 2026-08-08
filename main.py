@@ -45,7 +45,8 @@ async def register_artwork(user_id: str, file: UploadFile):
         with open(file_path, "wb") as f:
             f.write(file_bytes)
 
-        artwork.file_path = str(file_path)
+        artwork.filepath = str(file_path)
+        print("FILEPATH HERE!!!!!: " + str(file_path))
         db.commit()
 
         return {"id": artwork.id, "filename": artwork.filename}
@@ -64,7 +65,7 @@ async def compare_with_artwork(artwork_id: int, file: UploadFile):
             raise HTTPException(status_code=404, detail=f"No artwork found with id: {artwork_id}")
 
         uploaded_image = Image.open(BytesIO(await file.read()))
-        stored_image = Image.open(artwork.file_path)
+        stored_image = Image.open(artwork.filepath)
 
         is_similar, similarity_score = similarity.compare_images(
             uploaded_image, stored_image, model, preprocess
