@@ -1,6 +1,6 @@
 #database.py
 
-from sqlalchemy import create_engine, Column, Integer, String, DateTime, LargeBinary
+from sqlalchemy import create_engine, Column, ForeignKey, Integer, String, DateTime, LargeBinary, Boolean
 from sqlalchemy.orm import declarative_base, sessionmaker
 from datetime import datetime, timezone
 
@@ -19,7 +19,18 @@ class Artwork(Base):
     filename = Column(String, nullable=False)
     filepath = Column(String, nullable=True)
     embedding = Column(LargeBinary, nullable=False)
-    upload_time = Column(DateTime, default=datetime.now(timezone.utc))
+    time_uploaded = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+
+
+class SimilarArtwork(Base):
+    __tablename__ = "similar_artworks"
+
+    id = Column(Integer, primary_key=True, index=True)
+    artwork_id = Column(Integer, ForeignKey("artworks.id"), nullable=False)
+    url = Column(String, nullable=False) #TODO identify and warn for potentially dangerous urls
+    similarity_score = Column(Integer, nullable=False)
+    is_similar = Column(Boolean, nullable=False)
+    time_scanned = Column(DateTime, default=lambda: datetime.now(timezone.utc))
 
 
 def start_db():

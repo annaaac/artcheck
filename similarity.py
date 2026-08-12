@@ -1,4 +1,4 @@
-#compare.py
+#similarity.py
 
 import imagehash
 from PIL import Image
