@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>fetch exercise</title>
+</head>
+<body>
+
+  <h1>Talking to my backend</h1>
+
+  <button id="checkButton">Check artwork #1</button>
+
+  <pre id="output">(nothing yet — click the button)</pre>
+
+  <script>
+    // Grab references to the two elements we'll interact with.
+    // This is plain DOM manipulation - no React involved yet.
+    const button = document.getElementById("checkButton");
+    const output = document.getElementById("output");
+
+    // This function runs whenever the button is clicked.
+    async function handleClick() {
+      output.textContent = "Loading...";
+
+      try {
+        // fetch() sends an HTTP request, same idea as Python's `requests.get(...)`.
+        // `await` pauses this function until the response comes back,
+        // without freezing the rest of the page - same concept as your
+        // FastAPI endpoints being `async def`.
+        const response = await fetch("http://localhost:8000/artworks/1/scan");
+
+        if (!response.ok) {
+          throw new Error(`Server responded with ${response.status}`);
+        }
+
+        // The response body arrives as raw text first; .json() parses it
+        // into a real JS object, same idea as Python's response.json().
+        const data = await response.json();
+
+        // JSON.stringify with these extra arguments just pretty-prints it
+        // so it's readable on the page instead of one long line.
+        output.textContent = JSON.stringify(data, null, 2);
+      } catch (error) {
+        output.textContent = "Error: " + error.message;
+      }
+    }
+
+    // Wire the function up to the button's click event.
+    button.addEventListener("click", handleClick);
+  </script>
+
+</body>
+</html>
