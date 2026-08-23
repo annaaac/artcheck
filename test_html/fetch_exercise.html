@@ -9,25 +9,35 @@
   <h1>Talking to my backend</h1>
 
   <button id="checkButton">Check artwork #1</button>
+  <pre id="checkOutput">(nothing yet — click the button)</pre>
 
-  <pre id="output">(nothing yet — click the button)</pre>
+  <label for="artwork">Upload an artwork (PNG or JPEG):</label>
+  <input type="file" id="artwork" name="artwork" accept="image/png, image/jpeg" />
+  <button id="submitButton">Submit</button>
+  <pre id="submitOutput">(nothing yet — click the button)</pre>
 
   <script>
     // Grab references to the two elements we'll interact with.
     // This is plain DOM manipulation - no React involved yet.
-    const button = document.getElementById("checkButton");
-    const output = document.getElementById("output");
+    const check_button = document.getElementById("checkButton");
+    const check_output = document.getElementById("checkOutput");
+
+    const submit_button = document.getElementById("submitButton");
+    const submit_output = document.getElementById("submitOutput");
+
+    const artwork_input = document.getElementById("artwork");
+
 
     // This function runs whenever the button is clicked.
     async function handleClick() {
-      output.textContent = "Loading...";
+      check_output.textContent = "Loading...";
 
       try {
         // fetch() sends an HTTP request, same idea as Python's `requests.get(...)`.
         // `await` pauses this function until the response comes back,
         // without freezing the rest of the page - same concept as your
         // FastAPI endpoints being `async def`.
-        const response = await fetch("http://localhost:8000/artworks/1/scan");
+        const response = await fetch("http://localhost:8000/artworks/3/scan");
 
         if (!response.ok) {
           throw new Error(`Server responded with ${response.status}`);
@@ -39,14 +49,39 @@
 
         // JSON.stringify with these extra arguments just pretty-prints it
         // so it's readable on the page instead of one long line.
-        output.textContent = JSON.stringify(data, null, 2);
+        check_output.textContent = JSON.stringify(data, null, 2);
       } catch (error) {
-        output.textContent = "Error: " + error.message;
+        check_output.textContent = "Error: " + error.message;
+      }
+    }
+
+    
+    async function handleSubmit() {
+      submit_output.textContent = "Loading...";
+
+      try {
+        const formData = new FormData();
+        formData.append("file", artwork_input.files[0]);
+
+        const response = await fetch("http://localhost:8000/artworks?user_id=anna", {
+          method: "POST",
+          body: formData,
+        });
+
+        if (!response.ok) {
+          throw new Error(`Server responded with ${response.status}`);
+        }
+
+        const data = await response.json();
+        submit_output.textContent = JSON.stringify(data, null, 2);
+      } catch (error) {
+        submit_output.textContent = "Error: " + error.message;
       }
     }
 
     // Wire the function up to the button's click event.
-    button.addEventListener("click", handleClick);
+    check_button.addEventListener("click", handleClick);
+    submit_button.addEventListener("click", handleSubmit);
   </script>
 
 </body>

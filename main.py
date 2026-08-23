@@ -74,36 +74,6 @@ async def register_artwork(user_id: str, file: UploadFile):
         db.close()
 
 
-# @app.post("/artworks/{artwork_id}/scan")
-# async def scan_artwork(artwork_id: int, background_tasks: BackgroundTasks):
-#     db = SessionLocal()
-#     try:
-#         artwork = db.query(Artwork).filter(Artwork.id == artwork_id).first()
-#         if not artwork:
-#             raise HTTPException(status_code=404, detail=f"No artwork found with id: {artwork_id}")
-
-#         with open(artwork.filepath, "rb") as f:
-#             content = f.read()
-
-#         image = vision.Image(content=content)
-#         response = vision_client.web_detection(image=image)
-#         annotations = response.web_detection
-
-#         candidate_urls = set()
-#         for match in annotations.full_matching_images:
-#             candidate_urls.add(match.url)
-#         for match in annotations.partial_matching_images:
-#             candidate_urls.add(match.url)
-#         for match in annotations.visually_similar_images:
-#             candidate_urls.add(match.url)
-
-#         background_tasks.add_task(run_scan, artwork_id, list(candidate_urls), artwork.filepath)
-
-#         return {"artwork_id": artwork_id, "status": "scan_started", "candidate_count": len(candidate_urls)}
-#     finally:
-#         db.close()
-
-
 @app.post("/artworks/{artwork_id}/compare")
 async def compare_with_artwork(artwork_id: int, file: UploadFile):
     db = SessionLocal()
@@ -151,6 +121,49 @@ async def scan_artwork(artwork_id: int, background_tasks: BackgroundTasks):
         db.close()
 
 
+@app.get("/artworks/{artwork_id}/scan")
+async def get_scan_results(artwork_id: int):
+    db = SessionLocal()
+    try:
+        # Step 1: find the most recent time_scanned for each unique url
+        latest_per_url = (
+            db.query(
+                SimilarArtwork.url,
+                func.max(SimilarArtwork.time_scanned).label("latest_time")
+            )
+            .filter(SimilarArtwork.artwork_id == artwork_id)
+            .group_by(SimilarArtwork.url)
+            .subquery()
+        )
+
+        # Step 2: join back to get the full row matching that latest timestamp
+        results = (
+            db.query(SimilarArtwork)
+            .join(
+                latest_per_url,
+                (SimilarArtwork.url == latest_per_url.c.url)
+                & (SimilarArtwork.time_scanned == latest_per_url.c.latest_time)
+            )
+            .filter(SimilarArtwork.artwork_id == artwork_id)
+            .order_by(SimilarArtwork.similarity_score.desc())
+            .all()
+        )
+
+        return {
+            "artwork_id": artwork_id,
+            "matches": [
+                {
+                    "url": r.url,
+                    "similarity_score": r.similarity_score,
+                    "time_scanned": r.time_scanned.isoformat(),
+                }
+                for r in results
+            ],
+        }
+    finally:
+        db.close()
+
+
 @app.post("/compare")
 async def compare_images(file_a: UploadFile, file_b: UploadFile):
     image_a = Image.open(BytesIO(await file_a.read()))
@@ -159,39 +172,3 @@ async def compare_images(file_a: UploadFile, file_b: UploadFile):
     is_similar, similarity_score = similarity.compare_images(image_a, image_b, model, preprocess)
 
     return {"is_similar": is_similar, "similarity_score": similarity_score}
-
-
-# def run_scan(artwork_id: int, candidate_urls: list[str], stored_image_path: str):
-#     stored_image = Image.open(stored_image_path)
-#     db = SessionLocal()
-#     try:
-#         checked_count = 0
-#         for url in candidate_urls:
-#             try:
-#                 response = requests.get(url, timeout=5)
-#                 response.raise_for_status()
-#                 candidate_image = Image.open(BytesIO(response.content))
-#             except Exception:
-#                 continue
-
-#             checked_count += 1
-#             is_similar, similarity_score = similarity.compare_images(
-#                 stored_image, candidate_image, model, preprocess
-#             )
-
-#             print(f"Artwork {artwork_id}: checked {checked_count} candidates, found match: {is_similar} (score: {similarity_score}), url: {url}")
-
-#             if not is_similar:
-#                 continue
-#             else:
-#                 db.add(SimilarArtwork(
-#                     artwork_id=artwork_id,
-#                     url=url,
-#                     similarity_score=similarity_score,
-#                     is_similar=is_similar,
-#                 ))
-
-#         db.commit()
-#         print(f"Artwork {artwork_id}: checked {checked_count} candidates, saved matches above")
-#     finally:
-#         db.close()
