@@ -3,6 +3,7 @@
 from pathlib import Path
 from io import BytesIO
 from fastapi import FastAPI, UploadFile, HTTPException, BackgroundTasks
+from fastapi.responses import FileResponse
 from google.cloud import vision
 from PIL import Image
 from database import SimilarArtwork, start_db, SessionLocal, Artwork
@@ -70,6 +71,31 @@ async def register_artwork(user_id: str, file: UploadFile):
 
         return {"id": artwork.id, "filename": artwork.filename}
     
+    finally:
+        db.close()
+
+
+@app.get("/artworks")
+async def get_artworks_list():
+    db = SessionLocal()
+    try:
+        artworks = db.query(Artwork).order_by(Artwork.id.desc()).all()
+        return [
+            {"id": a.id, "filename": a.filename, "user_id": a.user_id}
+            for a in artworks
+        ]
+    finally:
+        db.close()
+
+
+@app.get("/artworks/{artwork_id}/image")
+async def get_artwork_image(artwork_id: int):
+    db = SessionLocal()
+    try:
+        artwork = db.query(Artwork).filter(Artwork.id == artwork_id).first()
+        if not artwork:
+            raise HTTPException(status_code=404, detail=f"No artwork found with id: {artwork_id}")
+        return FileResponse(artwork.filepath)
     finally:
         db.close()
 

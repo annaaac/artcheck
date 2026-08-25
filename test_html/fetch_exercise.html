@@ -1,22 +1,23 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="UTF-8" />
-  <title>fetch exercise</title>
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8" />
+        <title>fetch exercise</title>
+    </head>
+    <body>
 
-  <h1>Talking to my backend</h1>
+        <h1>Talking to my backend</h1>
 
-  <button id="checkButton">Check artwork #1</button>
-  <pre id="checkOutput">(nothing yet — click the button)</pre>
+        <button id="checkButton">Check artwork #1</button>
+        <pre id="checkOutput">(nothing yet — click the button)</pre>
 
-  <label for="artwork">Upload an artwork (PNG or JPEG):</label>
-  <input type="file" id="artwork" name="artwork" accept="image/png, image/jpeg" />
-  <button id="submitButton">Submit</button>
-  <pre id="submitOutput">(nothing yet — click the button)</pre>
+        <label for="artwork">Upload an artwork (PNG or JPEG):</label>
+        <input type="file" id="artwork" name="artwork"
+            accept="image/png, image/jpeg" />
+        <button id="submitButton">Submit</button>
+        <pre id="submitOutput">(nothing yet — click the button)</pre>
 
-  <script>
+        <script>
     // Grab references to the two elements we'll interact with.
     // This is plain DOM manipulation - no React involved yet.
     const check_button = document.getElementById("checkButton");
@@ -84,5 +85,5 @@
     submit_button.addEventListener("click", handleSubmit);
   </script>
 
-</body>
+    </body>
 </html>
