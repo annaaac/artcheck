@@ -1,5 +1,5 @@
 # run_scheduled_scans.py
-from database import start_db, SessionLocal, Artwork
+from database import SessionLocal, Artwork
 from google.cloud import vision
 import similarity
 from scan import get_candidate_urls, run_scan
@@ -8,7 +8,6 @@ from scan import get_candidate_urls, run_scan
 MAX_SCANS_PER_RUN = 900  # stay under the 1000/month free tier with buffer for manual testing
 
 def run_all_scheduled_scans():
-    start_db()
     vision_client = vision.ImageAnnotatorClient()
     model, preprocess = similarity.load_clip_model()
 

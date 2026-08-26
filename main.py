@@ -6,7 +6,7 @@ from fastapi import FastAPI, UploadFile, HTTPException, BackgroundTasks
 from fastapi.responses import FileResponse
 from google.cloud import vision
 from PIL import Image
-from database import SimilarArtwork, start_db, SessionLocal, Artwork
+from database import SimilarArtwork, SessionLocal, Artwork
 from scan import get_candidate_urls, run_scan
 from sqlalchemy import func
 from fastapi.middleware.cors import CORSMiddleware
@@ -33,8 +33,6 @@ app.add_middleware(
 
 model, preprocess = similarity.load_clip_model()
 vision_client = vision.ImageAnnotatorClient()
-
-start_db()
 
 UPLOADS_DIR = Path("uploads")
 UPLOADS_DIR.mkdir(exist_ok=True)
@@ -80,10 +78,29 @@ async def get_artworks_list():
     db = SessionLocal()
     try:
         artworks = db.query(Artwork).order_by(Artwork.id.desc()).all()
-        return [
-            {"id": a.id, "filename": a.filename, "user_id": a.user_id}
-            for a in artworks
-        ]
+
+        result = []
+
+        for a in artworks:
+            total = db.query(SimilarArtwork).filter(
+                SimilarArtwork.artwork_id == a.id,
+                SimilarArtwork.status != "dismissed",
+            ).count()
+
+            new_count = db.query(SimilarArtwork).filter(
+                SimilarArtwork.artwork_id == a.id,
+                SimilarArtwork.status == "new",
+            ).count()
+            
+            result.append({
+                "id": a.id,
+                "filename": a.filename,
+                "user_id": a.user_id,
+                "match_count": total,
+                "new_match_count": new_count,
+            })
+
+        return result
     finally:
         db.close()
 
@@ -179,9 +196,11 @@ async def get_scan_results(artwork_id: int):
             "artwork_id": artwork_id,
             "matches": [
                 {
+                    "id": r.id,
                     "url": r.url,
                     "similarity_score": r.similarity_score,
                     "time_scanned": r.time_scanned.isoformat(),
+                    "status": r.status,
                 }
                 for r in results
             ],
@@ -190,11 +209,27 @@ async def get_scan_results(artwork_id: int):
         db.close()
 
 
-@app.post("/compare")
-async def compare_images(file_a: UploadFile, file_b: UploadFile):
-    image_a = Image.open(BytesIO(await file_a.read()))
-    image_b = Image.open(BytesIO(await file_b.read()))
+@app.patch("/matches/{match_id}")
+async def update_match_status(match_id: int, status: str):
+    if status not in ("new", "reviewed", "dismissed"):
+        raise HTTPException(status_code=400, detail="Invalid status")
+    db = SessionLocal()
+    try:
+        match = db.query(SimilarArtwork).filter(SimilarArtwork.id == match_id).first()
+        if not match:
+            raise HTTPException(status_code=404, detail=f"No match found with id: {match_id}")
+        match.status = status
+        db.commit()
+        return {"id": match.id, "status": match.status}
+    finally:
+        db.close()
 
-    is_similar, similarity_score = similarity.compare_images(image_a, image_b, model, preprocess)
 
-    return {"is_similar": is_similar, "similarity_score": similarity_score}
+# @app.post("/compare")
+# async def compare_images(file_a: UploadFile, file_b: UploadFile):
+#     image_a = Image.open(BytesIO(await file_a.read()))
+#     image_b = Image.open(BytesIO(await file_b.read()))
+
+#     is_similar, similarity_score = similarity.compare_images(image_a, image_b, model, preprocess)
+
+#     return {"is_similar": is_similar, "similarity_score": similarity_score}

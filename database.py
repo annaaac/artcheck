@@ -32,7 +32,3 @@ class SimilarArtwork(Base):
     is_similar = Column(Boolean, nullable=False)
     time_scanned = Column(DateTime, default=lambda: datetime.now(timezone.utc))
     status = Column(String, nullable=False, default="new")
-
-
-def start_db():
-    Base.metadata.create_all(engine)
