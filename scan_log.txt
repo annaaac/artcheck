@@ -1,0 +1,339 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+WARNING:huggingface_hub.utils._http:Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+/Users/anna/Projects/artcheck/artcheck-env/lib/python3.14/site-packages/open_clip/factory.py:450: UserWarning: QuickGELU mismatch between final model config (quick_gelu=False) and pretrained tag 'openai' (quick_gelu=True).
+  warnings.warn(
+LOADING CLIP MODEL...
+Scanning 8 artworks...
+  Perceptual hash distance: 32
+  CLIP cosine similarity:   0.8005
+  Is similar: True (score: 80)
+  Perceptual hash distance: 26
+  CLIP cosine similarity:   0.7633
+  Is similar: True (score: 76)
+  Perceptual hash distance: 26
+  CLIP cosine similarity:   0.7935
+  Is similar: True (score: 79)
+  Perceptual hash distance: 32
+  CLIP cosine similarity:   0.7619
+  Is similar: True (score: 76)
+  Perceptual hash distance: 28
+  CLIP cosine similarity:   0.7203
+  Is similar: False (score: 72)
+  Perceptual hash distance: 34
+  CLIP cosine similarity:   0.6097
+  Is similar: False (score: 60)
+  Perceptual hash distance: 2
+  CLIP cosine similarity:   0.9899
+  Is similar: True (score: 98)
+  Perceptual hash distance: 34
+  CLIP cosine similarity:   0.5430
+  Is similar: False (score: 54)
+  Perceptual hash distance: 26
+  CLIP cosine similarity:   0.7726
+  Is similar: True (score: 77)
+  Perceptual hash distance: 28
+  CLIP cosine similarity:   0.6408
+  Is similar: False (score: 64)
+Artwork 1: checked 10 candidates, saved matches above
+  Scanned artwork 1: 12 candidates
+  Perceptual hash distance: 34
+  CLIP cosine similarity:   0.6681
+  Is similar: False (score: 66)
+  Perceptual hash distance: 28
+  CLIP cosine similarity:   0.7669
+  Is similar: True (score: 76)
+  Perceptual hash distance: 28
+  CLIP cosine similarity:   0.7831
+  Is similar: True (score: 78)
+  Perceptual hash distance: 32
+  CLIP cosine similarity:   0.7526
+  Is similar: True (score: 75)
+  Perceptual hash distance: 34
+  CLIP cosine similarity:   0.7266
+  Is similar: False (score: 72)
+Artwork 2: checked 5 candidates, saved matches above
+  Scanned artwork 2: 10 candidates
+  Perceptual hash distance: 28
+  CLIP cosine similarity:   0.7964
+  Is similar: True (score: 79)
+  Perceptual hash distance: 28
+  CLIP cosine similarity:   0.7557
+  Is similar: True (score: 75)
+  Perceptual hash distance: 24
+  CLIP cosine similarity:   0.8079
+  Is similar: True (score: 80)
+  Perceptual hash distance: 32
+  CLIP cosine similarity:   0.7352
+  Is similar: False (score: 73)
+  Perceptual hash distance: 44
+  CLIP cosine similarity:   0.7553
+  Is similar: True (score: 75)
+  Perceptual hash distance: 32
+  CLIP cosine similarity:   0.6628
+  Is similar: False (score: 66)
+  Perceptual hash distance: 34
+  CLIP cosine similarity:   0.8770
+  Is similar: True (score: 87)
+  Perceptual hash distance: 34
+  CLIP cosine similarity:   0.8430
+  Is similar: True (score: 84)
+  Perceptual hash distance: 28
+  CLIP cosine similarity:   0.8233
+  Is similar: True (score: 82)
+  Perceptual hash distance: 28
+  CLIP cosine similarity:   0.8569
+  Is similar: True (score: 85)
+  Perceptual hash distance: 34
+  CLIP cosine similarity:   0.8490
+  Is similar: True (score: 84)
+  Perceptual hash distance: 36
+  CLIP cosine similarity:   0.8467
+  Is similar: True (score: 84)
+  Perceptual hash distance: 38
+  CLIP cosine similarity:   0.8186
+  Is similar: True (score: 81)
+  Perceptual hash distance: 32
+  CLIP cosine similarity:   0.8695
+  Is similar: True (score: 86)
+  Perceptual hash distance: 32
+  CLIP cosine similarity:   0.8570
+  Is similar: True (score: 85)
+  Perceptual hash distance: 30
+  CLIP cosine similarity:   0.7786
+  Is similar: True (score: 77)
+Artwork 3: checked 16 candidates, saved matches above
+  Scanned artwork 3: 20 candidates
+  Perceptual hash distance: 28
+  CLIP cosine similarity:   0.8527
+  Is similar: True (score: 85)
+  Perceptual hash distance: 32
+  CLIP cosine similarity:   0.7850
+  Is similar: True (score: 78)
+  Perceptual hash distance: 34
+  CLIP cosine similarity:   0.7916
+  Is similar: True (score: 79)
+  Perceptual hash distance: 30
+  CLIP cosine similarity:   0.8420
+  Is similar: True (score: 84)
+  Perceptual hash distance: 22
+  CLIP cosine similarity:   0.8660
+  Is similar: True (score: 86)
+  Perceptual hash distance: 30
+  CLIP cosine similarity:   0.7922
+  Is similar: True (score: 79)
+  Perceptual hash distance: 30
+  CLIP cosine similarity:   0.7631
+  Is similar: True (score: 76)
+  Perceptual hash distance: 30
+  CLIP cosine similarity:   0.8430
+  Is similar: True (score: 84)
+  Perceptual hash distance: 38
+  CLIP cosine similarity:   0.7809
+  Is similar: True (score: 78)
+  Perceptual hash distance: 34
+  CLIP cosine similarity:   0.7825
+  Is similar: True (score: 78)
+Artwork 4: checked 10 candidates, saved matches above
+  Scanned artwork 4: 10 candidates
+  Perceptual hash distance: 0
+  CLIP cosine similarity:   1.0000
+  Is similar: True (score: 100)
+  Perceptual hash distance: 36
+  CLIP cosine similarity:   0.9401
+  Is similar: True (score: 94)
+Artwork 5: checked 2 candidates, saved matches above
+  Scanned artwork 5: 11 candidates
+  Perceptual hash distance: 0
+  CLIP cosine similarity:   1.0000
+  Is similar: True (score: 100)
+  Perceptual hash distance: 36
+  CLIP cosine similarity:   0.9401
+  Is similar: True (score: 94)
+Artwork 6: checked 2 candidates, saved matches above
+  Scanned artwork 6: 11 candidates
+  Perceptual hash distance: 0
+  CLIP cosine similarity:   1.0000
+  Is similar: True (score: 100)
+  Perceptual hash distance: 36
+  CLIP cosine similarity:   0.9401
+  Is similar: True (score: 94)
+Artwork 7: checked 2 candidates, saved matches above
+  Scanned artwork 7: 11 candidates
+  Perceptual hash distance: 0
+  CLIP cosine similarity:   1.0000
+  Is similar: True (score: 100)
+  Perceptual hash distance: 36
+  CLIP cosine similarity:   0.9401
+  Is similar: True (score: 94)
+Artwork 8: checked 2 candidates, saved matches above
+  Scanned artwork 8: 11 candidates
+/Users/anna/Projects/artcheck/artcheck-env/lib/python3.14/site-packages/open_clip/factory.py:450: UserWarning: QuickGELU mismatch between final model config (quick_gelu=False) and pretrained tag 'openai' (quick_gelu=True).
+  warnings.warn(
+LOADING CLIP MODEL...
+Scanning 8 artworks...
+  Perceptual hash distance: 32
+  CLIP cosine similarity:   0.7619
+  Is similar: True (score: 76)
+  Perceptual hash distance: 34
+  CLIP cosine similarity:   0.6097
+  Is similar: False (score: 60)
+  Perceptual hash distance: 32
+  CLIP cosine similarity:   0.8005
+  Is similar: True (score: 80)
+  Perceptual hash distance: 26
+  CLIP cosine similarity:   0.7920
+  Is similar: True (score: 79)
+  Perceptual hash distance: 28
+  CLIP cosine similarity:   0.6408
+  Is similar: False (score: 64)
+  Perceptual hash distance: 28
+  CLIP cosine similarity:   0.7203
+  Is similar: False (score: 72)
+  Perceptual hash distance: 2
+  CLIP cosine similarity:   0.9899
+  Is similar: True (score: 98)
+  Perceptual hash distance: 26
+  CLIP cosine similarity:   0.7726
+  Is similar: True (score: 77)
+  Perceptual hash distance: 26
+  CLIP cosine similarity:   0.7633
+  Is similar: True (score: 76)
+  Perceptual hash distance: 34
+  CLIP cosine similarity:   0.5516
+  Is similar: False (score: 55)
+Artwork 1: checked 10 candidates, saved matches above
+  Scanned artwork 1: 12 candidates
+  Perceptual hash distance: 28
+  CLIP cosine similarity:   0.7669
+  Is similar: True (score: 76)
+  Perceptual hash distance: 34
+  CLIP cosine similarity:   0.6681
+  Is similar: False (score: 66)
+  Perceptual hash distance: 32
+  CLIP cosine similarity:   0.7526
+  Is similar: True (score: 75)
+  Perceptual hash distance: 28
+  CLIP cosine similarity:   0.7831
+  Is similar: True (score: 78)
+  Perceptual hash distance: 34
+  CLIP cosine similarity:   0.7266
+  Is similar: False (score: 72)
+Artwork 2: checked 5 candidates, saved matches above
+  Scanned artwork 2: 10 candidates
+  Perceptual hash distance: 28
+  CLIP cosine similarity:   0.8233
+  Is similar: True (score: 82)
+  Perceptual hash distance: 28
+  CLIP cosine similarity:   0.8569
+  Is similar: True (score: 85)
+  Perceptual hash distance: 28
+  CLIP cosine similarity:   0.7964
+  Is similar: True (score: 79)
+  Perceptual hash distance: 36
+  CLIP cosine similarity:   0.8467
+  Is similar: True (score: 84)
+  Perceptual hash distance: 38
+  CLIP cosine similarity:   0.8186
+  Is similar: True (score: 81)
+  Perceptual hash distance: 32
+  CLIP cosine similarity:   0.6628
+  Is similar: False (score: 66)
+  Perceptual hash distance: 32
+  CLIP cosine similarity:   0.8695
+  Is similar: True (score: 86)
+  Perceptual hash distance: 32
+  CLIP cosine similarity:   0.8570
+  Is similar: True (score: 85)
+  Perceptual hash distance: 32
+  CLIP cosine similarity:   0.7352
+  Is similar: False (score: 73)
+  Perceptual hash distance: 24
+  CLIP cosine similarity:   0.8079
+  Is similar: True (score: 80)
+  Perceptual hash distance: 34
+  CLIP cosine similarity:   0.8770
+  Is similar: True (score: 87)
+  Perceptual hash distance: 36
+  CLIP cosine similarity:   0.8266
+  Is similar: True (score: 82)
+  Perceptual hash distance: 30
+  CLIP cosine similarity:   0.7786
+  Is similar: True (score: 77)
+  Perceptual hash distance: 28
+  CLIP cosine similarity:   0.7557
+  Is similar: True (score: 75)
+  Perceptual hash distance: 34
+  CLIP cosine similarity:   0.8430
+  Is similar: True (score: 84)
+  Perceptual hash distance: 34
+  CLIP cosine similarity:   0.8490
+  Is similar: True (score: 84)
+  Perceptual hash distance: 44
+  CLIP cosine similarity:   0.7553
+  Is similar: True (score: 75)
+Artwork 3: checked 17 candidates, saved matches above
+  Scanned artwork 3: 20 candidates
+  Perceptual hash distance: 30
+  CLIP cosine similarity:   0.7922
+  Is similar: True (score: 79)
+  Perceptual hash distance: 30
+  CLIP cosine similarity:   0.7631
+  Is similar: True (score: 76)
+  Perceptual hash distance: 38
+  CLIP cosine similarity:   0.7809
+  Is similar: True (score: 78)
+  Perceptual hash distance: 34
+  CLIP cosine similarity:   0.7916
+  Is similar: True (score: 79)
+  Perceptual hash distance: 32
+  CLIP cosine similarity:   0.7850
+  Is similar: True (score: 78)
+  Perceptual hash distance: 34
+  CLIP cosine similarity:   0.7825
+  Is similar: True (score: 78)
+  Perceptual hash distance: 22
+  CLIP cosine similarity:   0.8660
+  Is similar: True (score: 86)
+  Perceptual hash distance: 30
+  CLIP cosine similarity:   0.8430
+  Is similar: True (score: 84)
+  Perceptual hash distance: 28
+  CLIP cosine similarity:   0.8527
+  Is similar: True (score: 85)
+  Perceptual hash distance: 30
+  CLIP cosine similarity:   0.8420
+  Is similar: True (score: 84)
+Artwork 4: checked 10 candidates, saved matches above
+  Scanned artwork 4: 10 candidates
+  Perceptual hash distance: 0
+  CLIP cosine similarity:   1.0000
+  Is similar: True (score: 100)
+  Perceptual hash distance: 36
+  CLIP cosine similarity:   0.9401
+  Is similar: True (score: 94)
+Artwork 5: checked 2 candidates, saved matches above
+  Scanned artwork 5: 11 candidates
+  Perceptual hash distance: 0
+  CLIP cosine similarity:   1.0000
+  Is similar: True (score: 100)
+  Perceptual hash distance: 36
+  CLIP cosine similarity:   0.9401
+  Is similar: True (score: 94)
+Artwork 6: checked 2 candidates, saved matches above
+  Scanned artwork 6: 11 candidates
+  Perceptual hash distance: 0
+  CLIP cosine similarity:   1.0000
+  Is similar: True (score: 100)
+  Perceptual hash distance: 36
+  CLIP cosine similarity:   0.9401
+  Is similar: True (score: 94)
+Artwork 7: checked 2 candidates, saved matches above
+  Scanned artwork 7: 11 candidates
+  Perceptual hash distance: 0
+  CLIP cosine similarity:   1.0000
+  Is similar: True (score: 100)
+  Perceptual hash distance: 36
+  CLIP cosine similarity:   0.9401
+  Is similar: True (score: 94)
+Artwork 8: checked 2 candidates, saved matches above
+  Scanned artwork 8: 11 candidates

@@ -27,10 +27,11 @@ class SimilarArtwork(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     artwork_id = Column(Integer, ForeignKey("artworks.id"), nullable=False)
-    url = Column(String, nullable=False) #TODO identify and warn for potentially dangerous urls
+    url = Column(String, nullable=False)
     similarity_score = Column(Integer, nullable=False)
     is_similar = Column(Boolean, nullable=False)
     time_scanned = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    status = Column(String, nullable=False, default="new")
 
 
 def start_db():
