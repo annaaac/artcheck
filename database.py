@@ -1,6 +1,6 @@
 #database.py
 
-from sqlalchemy import create_engine, Column, ForeignKey, Integer, String, DateTime, LargeBinary, Boolean
+from sqlalchemy import create_engine, Column, ForeignKey, Integer, String, DateTime, LargeBinary, Boolean, UniqueConstraint
 from sqlalchemy.orm import declarative_base, sessionmaker
 from datetime import datetime, timezone
 
@@ -22,6 +22,8 @@ class Artwork(Base):
     time_uploaded = Column(DateTime, default=lambda: datetime.now(timezone.utc))
 
 
+from sqlalchemy import UniqueConstraint
+
 class SimilarArtwork(Base):
     __tablename__ = "similar_artworks"
 
@@ -32,3 +34,5 @@ class SimilarArtwork(Base):
     is_similar = Column(Boolean, nullable=False)
     time_scanned = Column(DateTime, default=lambda: datetime.now(timezone.utc))
     status = Column(String, nullable=False, default="new")
+
+    __table_args__ = (UniqueConstraint("artwork_id", "url", name="uq_artwork_url"),)

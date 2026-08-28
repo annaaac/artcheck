@@ -14,6 +14,8 @@ from fastapi.middleware.cors import CORSMiddleware
 import requests
 import similarity
 
+from pydantic import BaseModel
+
 app = FastAPI()
 
 origins = [
@@ -36,6 +38,25 @@ vision_client = vision.ImageAnnotatorClient()
 
 UPLOADS_DIR = Path("uploads")
 UPLOADS_DIR.mkdir(exist_ok=True)
+
+
+class MatchStatusUpdate(BaseModel):
+    status: str
+
+@app.patch("/matches/{match_id}")
+async def update_match_status(match_id: int, update: MatchStatusUpdate):
+    if update.status not in ("new", "reviewed", "dismissed"):
+        raise HTTPException(status_code=400, detail="Invalid status")
+    db = SessionLocal()
+    try:
+        match = db.query(SimilarArtwork).filter(SimilarArtwork.id == match_id).first()
+        if not match:
+            raise HTTPException(status_code=404, detail=f"No match found with id: {match_id}")
+        match.status = update.status
+        db.commit()
+        return {"id": match.id, "status": match.status}
+    finally:
+        db.close()
 
 
 @app.post("/artworks")
@@ -168,30 +189,15 @@ async def scan_artwork(artwork_id: int, background_tasks: BackgroundTasks):
 async def get_scan_results(artwork_id: int):
     db = SessionLocal()
     try:
-        # Step 1: find the most recent time_scanned for each unique url
-        latest_per_url = (
-            db.query(
-                SimilarArtwork.url,
-                func.max(SimilarArtwork.time_scanned).label("latest_time")
-            )
-            .filter(SimilarArtwork.artwork_id == artwork_id)
-            .group_by(SimilarArtwork.url)
-            .subquery()
-        )
-
-        # Step 2: join back to get the full row matching that latest timestamp
         results = (
             db.query(SimilarArtwork)
-            .join(
-                latest_per_url,
-                (SimilarArtwork.url == latest_per_url.c.url)
-                & (SimilarArtwork.time_scanned == latest_per_url.c.latest_time)
+            .filter(
+                SimilarArtwork.artwork_id == artwork_id,
+                SimilarArtwork.status != "dismissed",
             )
-            .filter(SimilarArtwork.artwork_id == artwork_id)
             .order_by(SimilarArtwork.similarity_score.desc())
             .all()
         )
-
         return {
             "artwork_id": artwork_id,
             "matches": [
@@ -205,22 +211,6 @@ async def get_scan_results(artwork_id: int):
                 for r in results
             ],
         }
-    finally:
-        db.close()
-
-
-@app.patch("/matches/{match_id}")
-async def update_match_status(match_id: int, status: str):
-    if status not in ("new", "reviewed", "dismissed"):
-        raise HTTPException(status_code=400, detail="Invalid status")
-    db = SessionLocal()
-    try:
-        match = db.query(SimilarArtwork).filter(SimilarArtwork.id == match_id).first()
-        if not match:
-            raise HTTPException(status_code=404, detail=f"No match found with id: {match_id}")
-        match.status = status
-        db.commit()
-        return {"id": match.id, "status": match.status}
     finally:
         db.close()
 

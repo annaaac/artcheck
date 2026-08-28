@@ -13,7 +13,7 @@ function ArtworkDetail() {
         throw new Error(`Server responded with ${response.status}`);
       }
       const data = await response.json();
-      setMatches(data.matches); // pull the array out of the response object
+      setMatches(data.matches);
     } catch (err) {
       setError(err.message);
     }
@@ -21,7 +21,23 @@ function ArtworkDetail() {
 
   useEffect(() => {
     loadMatches();
-  }, [artworkId]); // re-fetch if the user navigates between different artworks
+  }, [artworkId]);
+
+  async function dismissMatch(matchId) {
+    try {
+      const response = await fetch(`http://localhost:8000/matches/${matchId}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status: "dismissed" }),
+      });
+      if (!response.ok) {
+        throw new Error(`Server responded with ${response.status}`);
+      }
+      await loadMatches(); // refetch so the dismissed row disappears
+    } catch (err) {
+      setError(err.message);
+    }
+  }
 
   return (
     <>
@@ -39,12 +55,16 @@ function ArtworkDetail() {
         {error && <p className="error">{error}</p>}
         {matches.length === 0 && <p>No matches found yet.</p>}
         <ul>
-          {matches.map((match, i) => (
-            <li key={i}>
-              <a href={match.url} target="_blank" rel="noreferrer">
-                {match.url}
+          {matches.map((match) => (
+            <li key={match.id}>
+               <a href={match.url} target="_blank" rel="noreferrer">
+                <img src={match.url} alt="Description of the image" height="100"></img>
               </a>{" "}
-              — {match.similarity_score}%
+              <p>{match.similarity_score}%
+              {match.status === "new" && <span className="badge"> ● new</span>}</p>
+              <button onClick={() => dismissMatch(match.id)}>
+                Dismiss as false positive
+              </button>
             </li>
           ))}
         </ul>
