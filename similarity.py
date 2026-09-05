@@ -9,7 +9,7 @@ from pathlib import Path
 import numpy
 
 PHASH_SIMILARITY_THRESHOLD = 20  # lower = more similar
-CLIP_SIMILARITY_THRESHOLD = 0.75  # higher = more similar
+CLIP_SIMILARITY_THRESHOLD = 0.80  # higher = more similar
 
 TEST_IMAGES_PATH = Path("test_images")
 ORIGINAL_PATH = TEST_IMAGES_PATH / "original.png"

@@ -73,11 +73,19 @@ function Gallery() {
                     {artworks.map((artwork) => (
                         <li key={artwork.id}>
                             <Link to={`/artworks/${artwork.id}`}>
-                                <img src={`http://localhost:8000/artworks/${artwork.id}/image`} alt={artwork.filename} width={120} />
+                                <img
+                                    src={`http://localhost:8000/artworks/${artwork.id}/image`}
+                                    alt={artwork.filename}
+                                    width={120}
+                                />
                                 <div>{artwork.filename}</div>
                                 <div>
-                                    {artwork.match_count > 0 ? `${artwork.match_count} matches` : "Clear"}
-                                    {artwork.new_match_count > 0 && <span className="badge"> ● new</span>}
+                                    {artwork.match_count > 0
+                                        ? `${artwork.match_count} match${artwork.match_count === 1 ? "" : "es"}`
+                                        : "Clear"}
+                                    {artwork.new_match_count > 0 && (
+                                        <span className="badge"> ● {artwork.new_match_count} new</span>
+                                    )}
                                 </div>
                             </Link>
                         </li>
