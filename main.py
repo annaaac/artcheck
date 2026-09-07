@@ -45,6 +45,7 @@ UPLOADS_DIR.mkdir(exist_ok=True)
 class MatchStatusUpdate(BaseModel):
     status: str
 
+
 @app.patch("/matches/{match_id}")
 async def update_match_status(match_id: int, update: MatchStatusUpdate):
     if update.status not in ("new", "reviewed", "dismissed"):
@@ -57,6 +58,30 @@ async def update_match_status(match_id: int, update: MatchStatusUpdate):
         match.status = update.status
         db.commit()
         return {"id": match.id, "status": match.status}
+    finally:
+        db.close()
+
+
+@app.delete("/artworks/{artwork_id}")
+async def delete_artwork(artwork_id: int):
+    db = SessionLocal()
+    try:
+        artwork = db.query(Artwork).filter(Artwork.id == artwork_id).first()
+        if not artwork:
+            raise HTTPException(status_code=404, detail=f"No artwork found with id: {artwork_id}")
+
+        # Delete associated matches first
+        db.query(SimilarArtwork).filter(SimilarArtwork.artwork_id == artwork_id).delete()
+
+        # Delete the artwork
+        db.delete(artwork)
+        db.commit()
+
+        # Optionally, delete the file from the filesystem
+        if Path(artwork.filepath).exists():
+            Path(artwork.filepath).unlink()
+
+        return {"id": artwork_id, "status": "deleted"}
     finally:
         db.close()
 

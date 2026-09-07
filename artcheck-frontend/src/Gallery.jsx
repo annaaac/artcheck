@@ -116,7 +116,6 @@ function Gallery() {
                                     alt={artwork.filename}
                                     width={120}
                                 />
-                                <div>{artwork.filename}</div>
                                 <div>
                                     {scanStatuses[artwork.id] === "scanning" ? (
                                         "Pending…"

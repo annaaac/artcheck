@@ -22,7 +22,6 @@ function ArtworkDetail() {
     }
 
 
-
     async function loadMatches() {
         try {
             const response = await fetch(`http://localhost:8000/artworks/${artworkId}/scan`);
