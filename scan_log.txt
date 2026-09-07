@@ -337,3 +337,395 @@ Artwork 7: checked 2 candidates, saved matches above
   Is similar: True (score: 94)
 Artwork 8: checked 2 candidates, saved matches above
   Scanned artwork 8: 11 candidates
+/Users/anna/Projects/artcheck/artcheck-env/lib/python3.14/site-packages/open_clip/factory.py:450: UserWarning: QuickGELU mismatch between final model config (quick_gelu=False) and pretrained tag 'openai' (quick_gelu=True).
+  warnings.warn(
+/Users/anna/Projects/artcheck/artcheck-env/lib/python3.14/site-packages/PIL/Image.py:1136: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+LOADING CLIP MODEL...
+Scanning 15 artworks...
+  Perceptual hash distance: 26
+  CLIP cosine similarity:   0.7906
+  Is similar: False (score: 79)
+  Perceptual hash distance: 34
+  CLIP cosine similarity:   0.6097
+  Is similar: False (score: 60)
+  Perceptual hash distance: 34
+  CLIP cosine similarity:   0.6965
+  Is similar: False (score: 69)
+  Perceptual hash distance: 30
+  CLIP cosine similarity:   0.7368
+  Is similar: False (score: 73)
+  Perceptual hash distance: 34
+  CLIP cosine similarity:   0.7549
+  Is similar: False (score: 75)
+  Perceptual hash distance: 26
+  CLIP cosine similarity:   0.7633
+  Is similar: False (score: 76)
+  Perceptual hash distance: 26
+  CLIP cosine similarity:   0.7726
+  Is similar: False (score: 77)
+Artwork 1: checked 7 candidates, saved matches above
+  Scanned artwork 1: 11 candidates
+  Perceptual hash distance: 30
+  CLIP cosine similarity:   0.7428
+  Is similar: False (score: 74)
+  Perceptual hash distance: 28
+  CLIP cosine similarity:   0.7831
+  Is similar: False (score: 78)
+  Perceptual hash distance: 34
+  CLIP cosine similarity:   0.6683
+  Is similar: False (score: 66)
+  Perceptual hash distance: 34
+  CLIP cosine similarity:   0.6724
+  Is similar: False (score: 67)
+  Perceptual hash distance: 24
+  CLIP cosine similarity:   0.7837
+  Is similar: False (score: 78)
+Artwork 2: checked 5 candidates, saved matches above
+  Scanned artwork 2: 10 candidates
+  Perceptual hash distance: 36
+  CLIP cosine similarity:   0.7448
+  Is similar: False (score: 74)
+  Perceptual hash distance: 36
+  CLIP cosine similarity:   0.8655
+  Is similar: True (score: 86)
+  Perceptual hash distance: 32
+  CLIP cosine similarity:   0.8470
+  Is similar: True (score: 84)
+  Perceptual hash distance: 34
+  CLIP cosine similarity:   0.7846
+  Is similar: False (score: 78)
+  Perceptual hash distance: 32
+  CLIP cosine similarity:   0.8267
+  Is similar: True (score: 82)
+  Perceptual hash distance: 24
+  CLIP cosine similarity:   0.8784
+  Is similar: True (score: 87)
+  Perceptual hash distance: 42
+  CLIP cosine similarity:   0.8079
+  Is similar: True (score: 80)
+  Perceptual hash distance: 28
+  CLIP cosine similarity:   0.6947
+  Is similar: False (score: 69)
+  Perceptual hash distance: 36
+  CLIP cosine similarity:   0.8162
+  Is similar: True (score: 81)
+  Perceptual hash distance: 36
+  CLIP cosine similarity:   0.8313
+  Is similar: True (score: 83)
+  Perceptual hash distance: 32
+  CLIP cosine similarity:   0.7524
+  Is similar: False (score: 75)
+  Perceptual hash distance: 34
+  CLIP cosine similarity:   0.8781
+  Is similar: True (score: 87)
+  Perceptual hash distance: 30
+  CLIP cosine similarity:   0.7608
+  Is similar: False (score: 76)
+  Perceptual hash distance: 34
+  CLIP cosine similarity:   0.8490
+  Is similar: True (score: 84)
+  Failed to scan artwork 3: (sqlite3.IntegrityError) UNIQUE constraint failed: similar_artworks.artwork_id, similar_artworks.url
+[SQL: INSERT INTO similar_artworks (artwork_id, url, similarity_score, is_similar, time_scanned, status) VALUES (?, ?, ?, ?, ?, ?) RETURNING id]
+[parameters: (3, 'https://yt3.ggpht.com/-E7XD9E_bJxXPPERJ7pkLnR2Vj3U-pQO6-aVXcGfDv6VeetaqK9FHQVivLvXvZSiH8FqwMyfZQ=s176-c-k-c0x00ffffff-no-rj', 87, 1, '2026-09-06 10:00:36.115036', 'new')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+  Perceptual hash distance: 32
+  CLIP cosine similarity:   0.7930
+  Is similar: False (score: 79)
+  Perceptual hash distance: 30
+  CLIP cosine similarity:   0.7818
+  Is similar: False (score: 78)
+  Perceptual hash distance: 34
+  CLIP cosine similarity:   0.8257
+  Is similar: True (score: 82)
+  Perceptual hash distance: 26
+  CLIP cosine similarity:   0.8211
+  Is similar: True (score: 82)
+  Perceptual hash distance: 38
+  CLIP cosine similarity:   0.7809
+  Is similar: False (score: 78)
+  Perceptual hash distance: 30
+  CLIP cosine similarity:   0.7631
+  Is similar: False (score: 76)
+  Perceptual hash distance: 30
+  CLIP cosine similarity:   0.7922
+  Is similar: False (score: 79)
+  Perceptual hash distance: 30
+  CLIP cosine similarity:   0.7763
+  Is similar: False (score: 77)
+  Perceptual hash distance: 28
+  CLIP cosine similarity:   0.8527
+  Is similar: True (score: 85)
+  Perceptual hash distance: 30
+  CLIP cosine similarity:   0.8420
+  Is similar: True (score: 84)
+  Failed to scan artwork 4: (sqlite3.IntegrityError) UNIQUE constraint failed: similar_artworks.artwork_id, similar_artworks.url
+[SQL: INSERT INTO similar_artworks (artwork_id, url, similarity_score, is_similar, time_scanned, status) VALUES (?, ?, ?, ?, ?, ?) RETURNING id]
+[parameters: (4, 'https://i.ytimg.com/vi/rg3wnTZBN4o/maxresdefault.jpg', 85, 1, '2026-09-06 10:00:46.592588', 'new')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+  Perceptual hash distance: 30
+  CLIP cosine similarity:   0.8536
+  Is similar: True (score: 85)
+  Perceptual hash distance: 32
+  CLIP cosine similarity:   0.9341
+  Is similar: True (score: 93)
+  Perceptual hash distance: 26
+  CLIP cosine similarity:   0.9243
+  Is similar: True (score: 92)
+  Perceptual hash distance: 26
+  CLIP cosine similarity:   0.8964
+  Is similar: True (score: 89)
+  Perceptual hash distance: 28
+  CLIP cosine similarity:   0.8905
+  Is similar: True (score: 89)
+  Perceptual hash distance: 28
+  CLIP cosine similarity:   0.9004
+  Is similar: True (score: 90)
+  Perceptual hash distance: 32
+  CLIP cosine similarity:   0.8595
+  Is similar: True (score: 85)
+Artwork 5: checked 7 candidates, saved matches above
+  Scanned artwork 5: 10 candidates
+  Perceptual hash distance: 30
+  CLIP cosine similarity:   0.8536
+  Is similar: True (score: 85)
+  Perceptual hash distance: 32
+  CLIP cosine similarity:   0.9341
+  Is similar: True (score: 93)
+  Perceptual hash distance: 26
+  CLIP cosine similarity:   0.9243
+  Is similar: True (score: 92)
+  Perceptual hash distance: 26
+  CLIP cosine similarity:   0.8964
+  Is similar: True (score: 89)
+  Perceptual hash distance: 28
+  CLIP cosine similarity:   0.8905
+  Is similar: True (score: 89)
+  Perceptual hash distance: 28
+  CLIP cosine similarity:   0.9004
+  Is similar: True (score: 90)
+  Perceptual hash distance: 32
+  CLIP cosine similarity:   0.8595
+  Is similar: True (score: 85)
+Artwork 6: checked 7 candidates, saved matches above
+  Scanned artwork 6: 10 candidates
+  Perceptual hash distance: 30
+  CLIP cosine similarity:   0.8536
+  Is similar: True (score: 85)
+  Perceptual hash distance: 32
+  CLIP cosine similarity:   0.9341
+  Is similar: True (score: 93)
+  Perceptual hash distance: 26
+  CLIP cosine similarity:   0.9243
+  Is similar: True (score: 92)
+  Perceptual hash distance: 26
+  CLIP cosine similarity:   0.8964
+  Is similar: True (score: 89)
+  Perceptual hash distance: 28
+  CLIP cosine similarity:   0.8905
+  Is similar: True (score: 89)
+  Perceptual hash distance: 28
+  CLIP cosine similarity:   0.9004
+  Is similar: True (score: 90)
+  Perceptual hash distance: 32
+  CLIP cosine similarity:   0.8595
+  Is similar: True (score: 85)
+Artwork 7: checked 7 candidates, saved matches above
+  Scanned artwork 7: 10 candidates
+  Perceptual hash distance: 30
+  CLIP cosine similarity:   0.8536
+  Is similar: True (score: 85)
+  Perceptual hash distance: 32
+  CLIP cosine similarity:   0.9341
+  Is similar: True (score: 93)
+  Perceptual hash distance: 26
+  CLIP cosine similarity:   0.9243
+  Is similar: True (score: 92)
+  Perceptual hash distance: 26
+  CLIP cosine similarity:   0.8964
+  Is similar: True (score: 89)
+  Perceptual hash distance: 28
+  CLIP cosine similarity:   0.8905
+  Is similar: True (score: 89)
+  Perceptual hash distance: 28
+  CLIP cosine similarity:   0.9004
+  Is similar: True (score: 90)
+  Perceptual hash distance: 32
+  CLIP cosine similarity:   0.8595
+  Is similar: True (score: 85)
+Artwork 8: checked 7 candidates, saved matches above
+  Scanned artwork 8: 10 candidates
+  Perceptual hash distance: 14
+  CLIP cosine similarity:   0.9550
+  Is similar: True (score: 95)
+  Perceptual hash distance: 22
+  CLIP cosine similarity:   0.9557
+  Is similar: True (score: 95)
+  Perceptual hash distance: 24
+  CLIP cosine similarity:   0.8861
+  Is similar: True (score: 88)
+  Perceptual hash distance: 16
+  CLIP cosine similarity:   0.9480
+  Is similar: True (score: 94)
+  Perceptual hash distance: 24
+  CLIP cosine similarity:   0.8465
+  Is similar: True (score: 84)
+  Perceptual hash distance: 22
+  CLIP cosine similarity:   0.9361
+  Is similar: True (score: 93)
+  Perceptual hash distance: 32
+  CLIP cosine similarity:   0.6855
+  Is similar: False (score: 68)
+  Perceptual hash distance: 32
+  CLIP cosine similarity:   0.7481
+  Is similar: False (score: 74)
+  Perceptual hash distance: 34
+  CLIP cosine similarity:   0.5308
+  Is similar: False (score: 53)
+  Perceptual hash distance: 34
+  CLIP cosine similarity:   0.7263
+  Is similar: False (score: 72)
+  Perceptual hash distance: 24
+  CLIP cosine similarity:   0.8855
+  Is similar: True (score: 88)
+  Perceptual hash distance: 14
+  CLIP cosine similarity:   0.9265
+  Is similar: True (score: 92)
+  Perceptual hash distance: 18
+  CLIP cosine similarity:   0.9462
+  Is similar: True (score: 94)
+  Failed to scan artwork 9: (sqlite3.IntegrityError) UNIQUE constraint failed: similar_artworks.artwork_id, similar_artworks.url
+[SQL: INSERT INTO similar_artworks (artwork_id, url, similarity_score, is_similar, time_scanned, status) VALUES (?, ?, ?, ?, ?, ?) RETURNING id]
+[parameters: (9, 'https://i.pinimg.com/236x/d8/ee/da/d8eeda44656986d00a4f3bf392368ea1.jpg', 94, 1, '2026-09-06 10:01:23.047007', 'new')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+  Perceptual hash distance: 32
+  CLIP cosine similarity:   0.5434
+  Is similar: False (score: 54)
+  Perceptual hash distance: 32
+  CLIP cosine similarity:   0.7357
+  Is similar: False (score: 73)
+  Perceptual hash distance: 32
+  CLIP cosine similarity:   0.7973
+  Is similar: False (score: 79)
+  Perceptual hash distance: 40
+  CLIP cosine similarity:   0.6900
+  Is similar: False (score: 69)
+  Perceptual hash distance: 28
+  CLIP cosine similarity:   0.7894
+  Is similar: False (score: 78)
+  Perceptual hash distance: 32
+  CLIP cosine similarity:   0.7438
+  Is similar: False (score: 74)
+Artwork 10: checked 6 candidates, saved matches above
+  Scanned artwork 10: 11 candidates
+  Perceptual hash distance: 32
+  CLIP cosine similarity:   0.9029
+  Is similar: True (score: 90)
+  Perceptual hash distance: 32
+  CLIP cosine similarity:   0.7829
+  Is similar: False (score: 78)
+  Perceptual hash distance: 32
+  CLIP cosine similarity:   0.7623
+  Is similar: False (score: 76)
+  Perceptual hash distance: 34
+  CLIP cosine similarity:   0.8229
+  Is similar: True (score: 82)
+  Perceptual hash distance: 32
+  CLIP cosine similarity:   0.7506
+  Is similar: False (score: 75)
+  Perceptual hash distance: 34
+  CLIP cosine similarity:   0.8427
+  Is similar: True (score: 84)
+Artwork 11: checked 6 candidates, saved matches above
+  Scanned artwork 11: 11 candidates
+  Perceptual hash distance: 14
+  CLIP cosine similarity:   0.9282
+  Is similar: True (score: 92)
+  Perceptual hash distance: 20
+  CLIP cosine similarity:   0.9144
+  Is similar: True (score: 91)
+  Perceptual hash distance: 24
+  CLIP cosine similarity:   0.9060
+  Is similar: True (score: 90)
+  Failed to scan artwork 12: (sqlite3.IntegrityError) UNIQUE constraint failed: similar_artworks.artwork_id, similar_artworks.url
+[SQL: INSERT INTO similar_artworks (artwork_id, url, similarity_score, is_similar, time_scanned, status) VALUES (?, ?, ?, ?, ?, ?) RETURNING id]
+[parameters: (12, 'https://edenvalleypoultry.com/index_htm_files/37597@2x.png', 92, 1, '2026-09-06 10:01:39.749701', 'new')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+  Perceptual hash distance: 32
+  CLIP cosine similarity:   0.9029
+  Is similar: True (score: 90)
+  Perceptual hash distance: 32
+  CLIP cosine similarity:   0.7829
+  Is similar: False (score: 78)
+  Perceptual hash distance: 32
+  CLIP cosine similarity:   0.7623
+  Is similar: False (score: 76)
+  Perceptual hash distance: 34
+  CLIP cosine similarity:   0.8229
+  Is similar: True (score: 82)
+  Perceptual hash distance: 32
+  CLIP cosine similarity:   0.7506
+  Is similar: False (score: 75)
+  Perceptual hash distance: 34
+  CLIP cosine similarity:   0.8427
+  Is similar: True (score: 84)
+  Failed to scan artwork 13: (sqlite3.IntegrityError) UNIQUE constraint failed: similar_artworks.artwork_id, similar_artworks.url
+[SQL: INSERT INTO similar_artworks (artwork_id, url, similarity_score, is_similar, time_scanned, status) VALUES (?, ?, ?, ?, ?, ?) RETURNING id]
+[parameters: (13, 'https://m.gjcdn.net/fireside-post-image/900/40068078-k7va3api-v4.webp', 90, 1, '2026-09-06 10:01:46.201923', 'new')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+  Perceptual hash distance: 32
+  CLIP cosine similarity:   0.9056
+  Is similar: True (score: 90)
+  Perceptual hash distance: 32
+  CLIP cosine similarity:   0.9198
+  Is similar: True (score: 91)
+  Perceptual hash distance: 12
+  CLIP cosine similarity:   0.9657
+  Is similar: True (score: 96)
+  Perceptual hash distance: 34
+  CLIP cosine similarity:   0.8545
+  Is similar: True (score: 85)
+  Failed to scan artwork 14: (sqlite3.IntegrityError) UNIQUE constraint failed: similar_artworks.artwork_id, similar_artworks.url
+[SQL: INSERT INTO similar_artworks (artwork_id, url, similarity_score, is_similar, time_scanned, status) VALUES (?, ?, ?, ?, ?, ?) RETURNING id]
+[parameters: (14, 'https://www.town.obuse.nagano.jp/_obuse/js/chatbot/img/chatbot-bg.png', 91, 1, '2026-09-06 10:01:49.613013', 'new')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+  Perceptual hash distance: 18
+  CLIP cosine similarity:   0.8017
+  Is similar: True (score: 80)
+  Perceptual hash distance: 0
+  CLIP cosine similarity:   0.9534
+  Is similar: True (score: 95)
+  Perceptual hash distance: 26
+  CLIP cosine similarity:   0.8966
+  Is similar: True (score: 89)
+  Perceptual hash distance: 28
+  CLIP cosine similarity:   0.7804
+  Is similar: False (score: 78)
+  Perceptual hash distance: 0
+  CLIP cosine similarity:   1.0000
+  Is similar: True (score: 100)
+  Perceptual hash distance: 30
+  CLIP cosine similarity:   0.7206
+  Is similar: False (score: 72)
+  Perceptual hash distance: 30
+  CLIP cosine similarity:   0.7939
+  Is similar: False (score: 79)
+  Perceptual hash distance: 8
+  CLIP cosine similarity:   0.7906
+  Is similar: True (score: 79)
+  Perceptual hash distance: 36
+  CLIP cosine similarity:   0.8263
+  Is similar: True (score: 82)
+  Perceptual hash distance: 30
+  CLIP cosine similarity:   0.8493
+  Is similar: True (score: 84)
+  Perceptual hash distance: 32
+  CLIP cosine similarity:   0.7978
+  Is similar: False (score: 79)
+  Perceptual hash distance: 8
+  CLIP cosine similarity:   0.8448
+  Is similar: True (score: 84)
+  Failed to scan artwork 15: (sqlite3.IntegrityError) UNIQUE constraint failed: similar_artworks.artwork_id, similar_artworks.url
+[SQL: INSERT INTO similar_artworks (artwork_id, url, similarity_score, is_similar, time_scanned, status) VALUES (?, ?, ?, ?, ?, ?) RETURNING id]
+[parameters: (15, 'https://www.shutterstock.com/image-vector/daisy-seamless-pattern-vector-white-260nw-2743203755.jpg', 80, 1, '2026-09-06 10:01:56.062422', 'new')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Link } from "react-router-dom"
 
 function Gallery() {
@@ -6,6 +6,9 @@ function Gallery() {
     const [result, setResult] = useState(null);
     const [artworks, setArtworks] = useState([]);
     const [error, setError] = useState(null);
+    const [scanStatuses, setScanStatuses] = useState({}); // { [artworkId]: "scanning" }
+
+    const pollIntervals = useRef({});
 
     async function loadArtworks() {
         try {
@@ -22,7 +25,37 @@ function Gallery() {
 
     useEffect(() => {
         loadArtworks();
+
+        return () => {
+            // Clear all polling intervals when the component unmounts
+            Object.values(pollIntervals.current).forEach(clearInterval);
+        };
     }, []);
+
+    function pollScanStatus(artworkId) {
+        let attempts = 0;
+        const interval = setInterval(async () => {
+            attempts++;
+            try {
+                const response = await fetch(`http://localhost:8000/artworks/${artworkId}/scan`);
+                const data = await response.json();
+
+                if (data.matches.length > 0 || attempts >= 8) {
+                    clearInterval(interval);
+                    setScanStatuses((prev) => {
+                        const updated = { ...prev };
+                        delete updated[artworkId]; // remove "scanning" - real counts take over from artworks list
+                        return updated;
+                    });
+                    loadArtworks(); // Refresh the artworks list to show new matches
+                }
+            } catch (err) {
+                clearInterval(interval);
+                delete pollIntervals.current[artworkId];
+            }
+        }, 4000); // Poll every 5 seconds
+        pollIntervals.current[artworkId] = interval;
+    }
 
     async function handleSubmit() {
         setError(null);
@@ -41,6 +74,13 @@ function Gallery() {
 
             const data = await response.json();
             setResult(data);
+            setFile(null);
+            await loadArtworks(); // Refresh the artworks list to include the newly uploaded artwork
+
+            // Start polling for scan status
+            setScanStatuses((prev) => ({ ...prev, [data.id]: "scanning" }));
+            await fetch(`http://localhost:8000/artworks/${data.id}/scan`, { method: "POST" });
+            pollScanStatus(data.id);
         } catch (err) {
             setError(err.message);
         }
@@ -62,9 +102,7 @@ function Gallery() {
                 <button type="button" className="counter" onClick={handleSubmit}>
                     Submit
                 </button>
-
                 {error && <p className="error">{error}</p>}
-                {result && <pre>{JSON.stringify(result, null, 2)}</pre>}
             </section>
 
             <section id="right">
@@ -80,9 +118,13 @@ function Gallery() {
                                 />
                                 <div>{artwork.filename}</div>
                                 <div>
-                                    {artwork.match_count > 0
-                                        ? `${artwork.match_count} match${artwork.match_count === 1 ? "" : "es"}`
-                                        : "Clear"}
+                                    {scanStatuses[artwork.id] === "scanning" ? (
+                                        "Pending…"
+                                    ) : artwork.match_count > 0 ? (
+                                        `${artwork.match_count} match${artwork.match_count === 1 ? "" : "es"}`
+                                    ) : (
+                                        "Clear"
+                                    )}
                                     {artwork.new_match_count > 0 && (
                                         <span className="badge"> ● {artwork.new_match_count} new</span>
                                     )}
@@ -93,7 +135,7 @@ function Gallery() {
                 </ul>
             </section>
         </>
-    )
+    );
 }
 
 export default Gallery;

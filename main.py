@@ -39,6 +39,8 @@ vision_client = vision.ImageAnnotatorClient()
 UPLOADS_DIR = Path("uploads")
 UPLOADS_DIR.mkdir(exist_ok=True)
 
+#TODO ORGANIZE THESE ENDPOINTS BETTERRRRR TT
+
 
 class MatchStatusUpdate(BaseModel):
     status: str
@@ -215,11 +217,15 @@ async def get_scan_results(artwork_id: int):
         db.close()
 
 
-# @app.post("/compare")
-# async def compare_images(file_a: UploadFile, file_b: UploadFile):
-#     image_a = Image.open(BytesIO(await file_a.read()))
-#     image_b = Image.open(BytesIO(await file_b.read()))
-
-#     is_similar, similarity_score = similarity.compare_images(image_a, image_b, model, preprocess)
-
-#     return {"is_similar": is_similar, "similarity_score": similarity_score}
+@app.post("/artworks/{artwork_id}/mark-reviewed")
+async def mark_matches_reviewed(artwork_id: int):
+    db = SessionLocal()
+    try:
+        db.query(SimilarArtwork).filter(
+            SimilarArtwork.artwork_id == artwork_id,
+            SimilarArtwork.status == "new",
+        ).update({"status": "reviewed"})
+        db.commit()
+        return {"artwork_id": artwork_id, "status": "ok"}
+    finally:
+        db.close()
