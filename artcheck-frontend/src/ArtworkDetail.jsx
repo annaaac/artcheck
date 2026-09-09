@@ -93,24 +93,24 @@ function ArtworkDetail() {
                 </button>
             </section>
 
-            <section id="right">
+            <section id="matches">
                 <h2>Matches found</h2>
                 {error && <p className="error">{error}</p>}
                 {matches.length === 0 && <p>No matches found yet.</p>}
-                <ul>
+                <div className="container">
                     {matches.map((match) => (
-                        <li key={match.id}>
-                            <a href={match.url} target="_blank" rel="noreferrer">
+                        <div>
+                            <Link to={match.url} key={match.id} className="link">
                                 <img src={match.url} alt="Description of the image" height="100"></img>
-                            </a>{" "}
-                            <p>{match.similarity_score}%
-                                {match.status === "new" && <span className="badge"> ● new</span>}</p>
+                                <p>{match.similarity_score}%
+                                    {match.status === "new" && <span className="badge"> ● new</span>}</p>
+                            </Link>
                             <button onClick={() => dismissMatch(match.id)}>
-                                Dismiss
+                                Not a match
                             </button>
-                        </li>
+                        </div>
                     ))}
-                </ul>
+                </div>
             </section>
         </>
     );

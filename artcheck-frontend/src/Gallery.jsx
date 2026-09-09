@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from 'react'
 import { Link } from "react-router-dom"
 
+import './Gallery.css'
+
 function Gallery() {
     const [file, setFile] = useState(null);
     const [result, setResult] = useState(null);
@@ -88,49 +90,68 @@ function Gallery() {
 
     return (
         <>
-            <section id="center">
-                <div>
-                    <h1>Gallery page</h1>
-                    <h2>Welcome to Artcheck</h2>
-                    <p>Upload an artwork!</p>
-                </div>
-                <input
-                    type="file"
-                    accept="image/png, image/jpeg"
-                    onChange={(e) => setFile(e.target.files[0])}
-                />
-                <button className="button" type="button" onClick={handleSubmit}>
-                    Submit
-                </button>
-                {error && <p className="error">{error}</p>}
-            </section>
+            {/* <div class="split left">
+  <div class="centered">
+    <img src="img_avatar2.png" alt="Avatar woman">
+    <h2>Jane Flex</h2>
+    <p>Some text.</p>
+  </div>
+</div>
 
-            <section id="right">
-                <h2>Artworks</h2>
-                <div class="container">
-                    {artworks.map((artwork) => (
-                        <Link to={`/artworks/${artwork.id}`} key={artwork.id} className="link">
-                            <img
-                                src={`http://localhost:8000/artworks/${artwork.id}/image`}
-                                alt={artwork.filename}
-                                width={120}
-                            />
-                            <div>
-                                {scanStatuses[artwork.id] === "scanning" ? (
-                                    <div className="status">Pending…</div>
-                                ) : artwork.match_count > 0 ? (
-                                    <div className="status">{artwork.match_count} match{artwork.match_count === 1 ? "" : "es"}</div>
-                                ) : (
-                                    <div className="status">Clear</div>
-                                )}
-                                {artwork.new_match_count > 0 && (
-                                    <div className="badge">●</div>
-                                )}
-                            </div>
-                        </Link>
-                    ))}
-                </div>
-            </section>
+<div class="split right">
+  <div class="centered">
+    <img src="img_avatar.png" alt="Avatar man">
+    <h2>John Doe</h2>
+    <p>Some text here too.</p>
+  </div>
+</div> */}
+            <div className="gallery-container">
+
+                 <section id="submission">
+                    <div id="left">
+                        <h1>Welcome to Artcheck</h1>
+                        <p>Upload an artwork (PNG/JPG)</p>
+                        <input
+                            type="file"
+                            accept="image/png, image/jpeg"
+                            onChange={(e) => setFile(e.target.files[0])}
+                        />
+                        <button className="button" type="button" onClick={handleSubmit}>
+                            Submit
+                        </button>
+                        {error && <p className="error">{error}</p>}
+                    </div>
+                </section>
+
+                <section id="images">
+                    <div id="right">
+                        <h2>Artworks</h2>
+                        <div class="images-container">
+                            {artworks.map((artwork) => (
+                                <Link to={`/artworks/${artwork.id}`} key={artwork.id} className="link">
+                                    <img
+                                        src={`http://localhost:8000/artworks/${artwork.id}/image`}
+                                        alt={artwork.filename}
+                                        width={120}
+                                    />
+                                    <div>
+                                        {scanStatuses[artwork.id] === "scanning" ? (
+                                            <div className="status">Pending…</div>
+                                        ) : artwork.match_count > 0 ? (
+                                            <div className="status">{artwork.match_count} match{artwork.match_count === 1 ? "" : "es"}</div>
+                                        ) : (
+                                            <div className="status">Clear</div>
+                                        )}
+                                        {artwork.new_match_count > 0 && (
+                                            <div className="badge">●</div>
+                                        )}
+                                    </div>
+                                </Link>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            </div>
         </>
     );
 }

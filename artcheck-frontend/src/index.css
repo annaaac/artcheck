@@ -1,8 +1,8 @@
 :root {
-    --text: #6b6375;
+    --text: #6c508f;
     --text-h: #08060d;
-    --bg: #fff;
-    --border: #e5e4e7;
+    --bg: #edd9ff;
+    --border: #d3c0f0;
     --code-bg: #f4f3ec;
     --alert: #f87171;
     --accent: #aa3bff;
@@ -85,8 +85,8 @@ h2 {
 }
 
 h1 {
-    font-size: 56px;
-    letter-spacing: -1.68px;
+    font-size: 40px;
+    line-height: 110%;
     margin: 32px 0;
 
     @media (max-width: 1024px) {
@@ -97,7 +97,7 @@ h1 {
 
 h2 {
     font-size: 24px;
-    line-height: 118%;
+    line-height: 110%;
     letter-spacing: -0.24px;
     margin: 0 0 8px;
 
@@ -130,7 +130,7 @@ code {
 }
 
 
-.container {
+/* .container {
     display: grid;
     justify-content: center;
     gap: 40px;
@@ -146,7 +146,8 @@ code {
     aspect-ratio: 1/1;
     object-fit: cover;
 
-    :hover, :focus {
+    :hover,
+    :focus {
         opacity: 0;
     }
 }
@@ -167,7 +168,7 @@ code {
         font-size: 15px;
         text-align: end;
     }
-}
+} */
 
 
 .link {
@@ -177,7 +178,8 @@ code {
         color: var(--text-h);
     }
 
-    :hover, :focus {
+    :hover,
+    :focus {
         opacity: 0.8;
     }
 
@@ -188,3 +190,19 @@ code {
 }
 
 /* TODO BUG text turns red when clicking on artwork from gallery */
+
+input[type="file"] {
+    padding: 20px;
+}
+
+input::file-selector-button {
+    font-family: var(--sans);
+    font-size: 18px;
+    line-height: 145%;
+    letter-spacing: 0.18px;
+    color: var(--text-h);
+    background: var(--accent-bg);
+    border: 1px solid var(--accent-border);
+    border-radius: 25px;
+    padding: 8px 16px;
+}
