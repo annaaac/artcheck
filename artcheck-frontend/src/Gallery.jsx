@@ -99,7 +99,7 @@ function Gallery() {
                     accept="image/png, image/jpeg"
                     onChange={(e) => setFile(e.target.files[0])}
                 />
-                <button type="button" className="counter" onClick={handleSubmit}>
+                <button className="button" type="button" onClick={handleSubmit}>
                     Submit
                 </button>
                 {error && <p className="error">{error}</p>}
@@ -107,31 +107,29 @@ function Gallery() {
 
             <section id="right">
                 <h2>Artworks</h2>
-                <ul>
+                <div class="container">
                     {artworks.map((artwork) => (
-                        <li key={artwork.id}>
-                            <Link to={`/artworks/${artwork.id}`}>
-                                <img
-                                    src={`http://localhost:8000/artworks/${artwork.id}/image`}
-                                    alt={artwork.filename}
-                                    width={120}
-                                />
-                                <div>
-                                    {scanStatuses[artwork.id] === "scanning" ? (
-                                        "Pending…"
-                                    ) : artwork.match_count > 0 ? (
-                                        `${artwork.match_count} match${artwork.match_count === 1 ? "" : "es"}`
-                                    ) : (
-                                        "Clear"
-                                    )}
-                                    {artwork.new_match_count > 0 && (
-                                        <span className="badge"> ● {artwork.new_match_count} new</span>
-                                    )}
-                                </div>
-                            </Link>
-                        </li>
+                        <Link to={`/artworks/${artwork.id}`} key={artwork.id} className="link">
+                            <img
+                                src={`http://localhost:8000/artworks/${artwork.id}/image`}
+                                alt={artwork.filename}
+                                width={120}
+                            />
+                            <div>
+                                {scanStatuses[artwork.id] === "scanning" ? (
+                                    <div className="status">Pending…</div>
+                                ) : artwork.match_count > 0 ? (
+                                    <div className="status">{artwork.match_count} match{artwork.match_count === 1 ? "" : "es"}</div>
+                                ) : (
+                                    <div className="status">Clear</div>
+                                )}
+                                {artwork.new_match_count > 0 && (
+                                    <div className="badge">●</div>
+                                )}
+                            </div>
+                        </Link>
                     ))}
-                </ul>
+                </div>
             </section>
         </>
     );

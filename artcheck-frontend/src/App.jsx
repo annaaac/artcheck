@@ -13,6 +13,7 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Gallery />} />
                     <Route path="/artworks/:artworkId" element={<ArtworkDetail />} />
+                    {/* <Route path="*" element={<NotFound />} /> TODO */}
                 </Routes>
             </BrowserRouter>
         </>

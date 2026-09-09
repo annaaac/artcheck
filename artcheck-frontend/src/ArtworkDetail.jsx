@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 function ArtworkDetail() {
     const { artworkId } = useParams();
@@ -56,22 +56,30 @@ function ArtworkDetail() {
     useEffect(() => {
         loadMatches();
 
-        document.addEventListener("visibilitychange", () => {
+        function handleVisibilityChange() {
             if (document.visibilityState === "visible") {
                 fetch(`http://localhost:8000/artworks/${artworkId}/mark-reviewed`, {
                     method: "POST",
                 }).catch(() => { });
             }
-        });
+        }
+
+        document.addEventListener("visibilitychange", handleVisibilityChange);
 
         return () => {
-            document.removeEventListener('visibilitychange', () => {});
+            document.removeEventListener("visibilitychange", handleVisibilityChange);
         };
     }, [artworkId]);
 
 
     return (
         <>
+            <section id="left">
+                <Link to="/">
+                    Back to Gallery
+                </Link>
+            </section>
+
             <section id="center">
                 <h1>Artwork Detail {artworkId}</h1>
                 <img
@@ -80,8 +88,8 @@ function ArtworkDetail() {
                     width={300}
                 />
 
-                <button onClick={() => deleteArtwork()}>
-                    DELETE ARTWORK FROM GALLERY
+                <button className="delete-button" onClick={() => deleteArtwork()}>
+                    DELETE
                 </button>
             </section>
 
@@ -98,7 +106,7 @@ function ArtworkDetail() {
                             <p>{match.similarity_score}%
                                 {match.status === "new" && <span className="badge"> ● new</span>}</p>
                             <button onClick={() => dismissMatch(match.id)}>
-                                Dismiss as false positive
+                                Dismiss
                             </button>
                         </li>
                     ))}
