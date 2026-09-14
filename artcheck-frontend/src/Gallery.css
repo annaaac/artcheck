@@ -6,22 +6,23 @@
 
 .gallery-container {
     display: flex;
+    flex-direction: row;
     height: 100svh;
+    align-items: center;
 }
 
-#right, #left {
-    flex: 1;
+#gallery-right, #gallery-left {
     height: 100svh;
     overflow-y: auto;
     padding: 20px
 }
 
-#right {
+#gallery-right {
     background-color: var(--bg);
     border-left: 2px solid var(--border-color, var(--border));
 }
 
-#left {
+#gallery-left {
     background-color: var(--bg);
 }
 

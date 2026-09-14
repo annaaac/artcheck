@@ -13,6 +13,7 @@ Base = declarative_base()
 
 class Artwork(Base):
     __tablename__ = "artworks"
+    __table_args__ = {"sqlite_autoincrement": True}
 
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(String, nullable=False)
@@ -22,10 +23,12 @@ class Artwork(Base):
     time_uploaded = Column(DateTime, default=lambda: datetime.now(timezone.utc))
 
 
-from sqlalchemy import UniqueConstraint
-
 class SimilarArtwork(Base):
     __tablename__ = "similar_artworks"
+    __table_args__ = (
+        UniqueConstraint("artwork_id", "url", name="uq_artwork_url"),
+        {"sqlite_autoincrement": True},
+    )
 
     id = Column(Integer, primary_key=True, index=True)
     artwork_id = Column(Integer, ForeignKey("artworks.id"), nullable=False)
@@ -34,5 +37,3 @@ class SimilarArtwork(Base):
     is_similar = Column(Boolean, nullable=False)
     time_scanned = Column(DateTime, default=lambda: datetime.now(timezone.utc))
     status = Column(String, nullable=False, default="new")
-
-    __table_args__ = (UniqueConstraint("artwork_id", "url", name="uq_artwork_url"),)

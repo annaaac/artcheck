@@ -9,6 +9,8 @@ function Gallery() {
     const [artworks, setArtworks] = useState([]);
     const [error, setError] = useState(null);
     const [scanStatuses, setScanStatuses] = useState({}); // { [artworkId]: "scanning" }
+    const [submitting, setSubmitting] = useState(false);
+
 
     const pollIntervals = useRef({});
 
@@ -59,7 +61,10 @@ function Gallery() {
         pollIntervals.current[artworkId] = interval;
     }
 
+
     async function handleSubmit() {
+        if (!file) return; // guard: nothing to submit
+        setSubmitting(true);
         setError(null);
         try {
             const formData = new FormData();
@@ -77,38 +82,25 @@ function Gallery() {
             const data = await response.json();
             setResult(data);
             setFile(null);
-            await loadArtworks(); // Refresh the artworks list to include the newly uploaded artwork
+            await loadArtworks();
 
-            // Start polling for scan status
             setScanStatuses((prev) => ({ ...prev, [data.id]: "scanning" }));
             await fetch(`http://localhost:8000/artworks/${data.id}/scan`, { method: "POST" });
             pollScanStatus(data.id);
         } catch (err) {
             setError(err.message);
+        } finally {
+            setSubmitting(false);
         }
     }
 
+
     return (
         <>
-            {/* <div class="split left">
-  <div class="centered">
-    <img src="img_avatar2.png" alt="Avatar woman">
-    <h2>Jane Flex</h2>
-    <p>Some text.</p>
-  </div>
-</div>
-
-<div class="split right">
-  <div class="centered">
-    <img src="img_avatar.png" alt="Avatar man">
-    <h2>John Doe</h2>
-    <p>Some text here too.</p>
-  </div>
-</div> */}
             <div className="gallery-container">
 
-                 <section id="submission">
-                    <div id="left">
+                <section id="submission">
+                    <div id="gallery-left">
                         <h1>Welcome to Artcheck</h1>
                         <p>Upload an artwork (PNG/JPG)</p>
                         <input
@@ -116,15 +108,20 @@ function Gallery() {
                             accept="image/png, image/jpeg"
                             onChange={(e) => setFile(e.target.files[0])}
                         />
-                        <button className="button" type="button" onClick={handleSubmit}>
-                            Submit
+                        <button
+                            className="button"
+                            type="button"
+                            onClick={handleSubmit}
+                            disabled={submitting || !file}
+                        >
+                            {submitting ? "Uploading…" : "Submit"}
                         </button>
                         {error && <p className="error">{error}</p>}
                     </div>
                 </section>
 
                 <section id="images">
-                    <div id="right">
+                    <div id="gallery-right">
                         <h2>Artworks</h2>
                         <div class="images-container">
                             {artworks.map((artwork) => (
