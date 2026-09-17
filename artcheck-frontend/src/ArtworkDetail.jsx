@@ -58,18 +58,10 @@ function ArtworkDetail() {
     useEffect(() => {
         loadMatches();
 
-        function handleVisibilityChange() {
-            if (document.visibilityState === "visible") {
-                fetch(`http://localhost:8000/artworks/${artworkId}/mark-reviewed`, {
-                    method: "POST",
-                }).catch(() => { });
-            }
-        }
-
-        document.addEventListener("visibilitychange", handleVisibilityChange);
-
         return () => {
-            document.removeEventListener("visibilitychange", handleVisibilityChange);
+            fetch(`http://localhost:8000/artworks/${artworkId}/mark-reviewed`, {
+                method: "POST",
+            }).catch(() => { });
         };
     }, [artworkId]);
 
@@ -109,27 +101,30 @@ function ArtworkDetail() {
                                     <a href={match.url} target="_blank" rel="noreferrer">
                                         <img src={match.url} alt="Match preview" onError={(e) => { e.target.style.visibility = "hidden"; }} />
                                     </a><br></br>
-                                    {/* TODO: BRING DISMISSED MATCHES BACKK. undo button? */}
-                                    <button onClick={() => dismissMatch(match.id)}>
-                                        Not a match
-                                    </button>
+                                    {/* TODO: BRING DISMISSED MATCHES BACKK. undo button? 
+                                    DO NOT PLAY GIFS INSTEAD LABEL THEM AS GIFS */}
                                 </div>
 
                                 <div className="match-text">
                                     <p align="left">
                                         similarity: {match.similarity_score}%<br></br>
                                         url: <a href={match.url} target="_blank" rel="noreferrer">{match.url}</a><br></br>
-                                        Found on {match.time_scanned}<br></br>
+                                        Found on {new Date(match.time_scanned).toLocaleString(navigator.language, {
+                                            dateStyle: "long",
+                                            timeStyle: "long"
+                                        })}<br></br>
                                         {match.status === "new" && <span className="badge"> ● new</span>}</p>
 
 
                                 </div>
 
-                            </div>
+                                <button onClick={() => dismissMatch(match.id)}>
+                                    Not a match
+                                </button>
 
+                            </div>
                         ))}
                     </div>
-
                 </div>
             </div>
         </>
