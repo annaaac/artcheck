@@ -729,3 +729,486 @@ Artwork 11: checked 6 candidates, saved matches above
 [SQL: INSERT INTO similar_artworks (artwork_id, url, similarity_score, is_similar, time_scanned, status) VALUES (?, ?, ?, ?, ?, ?) RETURNING id]
 [parameters: (15, 'https://www.shutterstock.com/image-vector/daisy-seamless-pattern-vector-white-260nw-2743203755.jpg', 80, 1, '2026-09-06 10:01:56.062422', 'new')]
 (Background on this error at: https://sqlalche.me/e/20/gkpj)
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+WARNING:huggingface_hub.utils._http:Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+/Users/anna/Projects/artcheck/artcheck-env/lib/python3.14/site-packages/open_clip/factory.py:450: UserWarning: QuickGELU mismatch between final model config (quick_gelu=False) and pretrained tag 'openai' (quick_gelu=True).
+  warnings.warn(
+/Users/anna/Projects/artcheck/artcheck-env/lib/python3.14/site-packages/PIL/Image.py:1136: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+LOADING CLIP MODEL...
+Scanning 14 artworks...
+  Perceptual hash distance: 32
+  CLIP cosine similarity:   0.8005
+  Is similar: True (score: 80)
+  Perceptual hash distance: 26
+  CLIP cosine similarity:   0.7726
+  Is similar: False (score: 77)
+  Perceptual hash distance: 26
+  CLIP cosine similarity:   0.4787
+  Is similar: False (score: 47)
+  Perceptual hash distance: 30
+  CLIP cosine similarity:   0.7609
+  Is similar: False (score: 76)
+  Perceptual hash distance: 36
+  CLIP cosine similarity:   0.6999
+  Is similar: False (score: 69)
+  Perceptual hash distance: 36
+  CLIP cosine similarity:   0.7650
+  Is similar: False (score: 76)
+  Perceptual hash distance: 26
+  CLIP cosine similarity:   0.7633
+  Is similar: False (score: 76)
+  Perceptual hash distance: 34
+  CLIP cosine similarity:   0.7315
+  Is similar: False (score: 73)
+  Perceptual hash distance: 34
+  CLIP cosine similarity:   0.6097
+  Is similar: False (score: 60)
+  Failed to scan artwork 1: (sqlite3.IntegrityError) UNIQUE constraint failed: similar_artworks.artwork_id, similar_artworks.url
+[SQL: INSERT INTO similar_artworks (artwork_id, url, similarity_score, is_similar, time_scanned, status) VALUES (?, ?, ?, ?, ?, ?)]
+[parameters: (1, 'https://img.pastemagazine.com/wp-content/avuploads/2026/02/26130600/scott-pilgrim-ex-main-3.jpg', 80, 1, '2026-09-20 10:00:19.004704', 'new')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+  Perceptual hash distance: 36
+  CLIP cosine similarity:   0.7132
+  Is similar: False (score: 71)
+  Perceptual hash distance: 30
+  CLIP cosine similarity:   0.7420
+  Is similar: False (score: 74)
+  Perceptual hash distance: 34
+  CLIP cosine similarity:   0.6724
+  Is similar: False (score: 67)
+  Perceptual hash distance: 30
+  CLIP cosine similarity:   0.7635
+  Is similar: False (score: 76)
+  Perceptual hash distance: 28
+  CLIP cosine similarity:   0.7669
+  Is similar: False (score: 76)
+  Perceptual hash distance: 34
+  CLIP cosine similarity:   0.6603
+  Is similar: False (score: 66)
+Artwork 2: checked 6 candidates, saved matches above
+  Scanned artwork 2: 10 candidates
+  Perceptual hash distance: 28
+  CLIP cosine similarity:   0.6947
+  Is similar: False (score: 69)
+  Perceptual hash distance: 36
+  CLIP cosine similarity:   0.8467
+  Is similar: True (score: 84)
+  Perceptual hash distance: 30
+  CLIP cosine similarity:   0.7712
+  Is similar: False (score: 77)
+  Perceptual hash distance: 44
+  CLIP cosine similarity:   0.7553
+  Is similar: False (score: 75)
+  Perceptual hash distance: 28
+  CLIP cosine similarity:   0.7142
+  Is similar: False (score: 71)
+  Perceptual hash distance: 36
+  CLIP cosine similarity:   0.8701
+  Is similar: True (score: 87)
+  Perceptual hash distance: 30
+  CLIP cosine similarity:   0.8914
+  Is similar: True (score: 89)
+  Perceptual hash distance: 32
+  CLIP cosine similarity:   0.7352
+  Is similar: False (score: 73)
+  Perceptual hash distance: 32
+  CLIP cosine similarity:   0.8114
+  Is similar: True (score: 81)
+  Perceptual hash distance: 28
+  CLIP cosine similarity:   0.8167
+  Is similar: True (score: 81)
+  Perceptual hash distance: 36
+  CLIP cosine similarity:   0.8655
+  Is similar: True (score: 86)
+  Perceptual hash distance: 36
+  CLIP cosine similarity:   0.8162
+  Is similar: True (score: 81)
+  Perceptual hash distance: 34
+  CLIP cosine similarity:   0.8430
+  Is similar: True (score: 84)
+  Perceptual hash distance: 36
+  CLIP cosine similarity:   0.8363
+  Is similar: True (score: 83)
+  Perceptual hash distance: 30
+  CLIP cosine similarity:   0.6571
+  Is similar: False (score: 65)
+  Perceptual hash distance: 34
+  CLIP cosine similarity:   0.8699
+  Is similar: True (score: 86)
+  Perceptual hash distance: 34
+  CLIP cosine similarity:   0.8973
+  Is similar: True (score: 89)
+  Perceptual hash distance: 30
+  CLIP cosine similarity:   0.8702
+  Is similar: True (score: 87)
+  Perceptual hash distance: 26
+  CLIP cosine similarity:   0.7533
+  Is similar: False (score: 75)
+  Failed to scan artwork 3: (sqlite3.IntegrityError) UNIQUE constraint failed: similar_artworks.artwork_id, similar_artworks.url
+[SQL: INSERT INTO similar_artworks (artwork_id, url, similarity_score, is_similar, time_scanned, status) VALUES (?, ?, ?, ?, ?, ?) RETURNING id]
+[parameters: (3, 'https://cdn.readawrite.com/articles/24532/24531833/chapter/0a8ab9eb6cd17dc3ae23975e6b878b11/thumbnail/small.gif?1', 84, 1, '2026-09-20 10:00:44.436360', 'new')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+  Perceptual hash distance: 34
+  CLIP cosine similarity:   0.7911
+  Is similar: False (score: 79)
+  Perceptual hash distance: 26
+  CLIP cosine similarity:   0.8301
+  Is similar: True (score: 83)
+  Perceptual hash distance: 32
+  CLIP cosine similarity:   0.7662
+  Is similar: False (score: 76)
+  Perceptual hash distance: 34
+  CLIP cosine similarity:   0.7711
+  Is similar: False (score: 77)
+  Perceptual hash distance: 30
+  CLIP cosine similarity:   0.7784
+  Is similar: False (score: 77)
+  Perceptual hash distance: 24
+  CLIP cosine similarity:   0.8264
+  Is similar: True (score: 82)
+Artwork 4: checked 6 candidates, saved matches above
+  Scanned artwork 4: 10 candidates
+  Perceptual hash distance: 36
+  CLIP cosine similarity:   0.9401
+  Is similar: True (score: 94)
+  Perceptual hash distance: 32
+  CLIP cosine similarity:   0.9282
+  Is similar: True (score: 92)
+  Perceptual hash distance: 40
+  CLIP cosine similarity:   0.8998
+  Is similar: True (score: 89)
+  Perceptual hash distance: 30
+  CLIP cosine similarity:   0.9273
+  Is similar: True (score: 92)
+  Perceptual hash distance: 32
+  CLIP cosine similarity:   0.8355
+  Is similar: True (score: 83)
+  Perceptual hash distance: 32
+  CLIP cosine similarity:   0.8465
+  Is similar: True (score: 84)
+  Perceptual hash distance: 30
+  CLIP cosine similarity:   0.9193
+  Is similar: True (score: 91)
+  Failed to scan artwork 5: (sqlite3.IntegrityError) UNIQUE constraint failed: similar_artworks.artwork_id, similar_artworks.url
+[SQL: INSERT INTO similar_artworks (artwork_id, url, similarity_score, is_similar, time_scanned, status) VALUES (?, ?, ?, ?, ?, ?) RETURNING id]
+[parameters: (5, 'https://images.squarespace-cdn.com/content/v1/6195af0e6e39a262b4d3ec98/a128fcc1-42cf-46eb-8785-d8e803c6482a/Reunion_banner+texture.jpg', 94, 1, '2026-09-20 10:00:58.539039', 'new')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+  Perceptual hash distance: 32
+  CLIP cosine similarity:   0.8142
+  Is similar: True (score: 81)
+  Perceptual hash distance: 24
+  CLIP cosine similarity:   0.8465
+  Is similar: True (score: 84)
+  Perceptual hash distance: 16
+  CLIP cosine similarity:   0.9480
+  Is similar: True (score: 94)
+  Perceptual hash distance: 48
+  CLIP cosine similarity:   0.8492
+  Is similar: True (score: 84)
+  Perceptual hash distance: 24
+  CLIP cosine similarity:   0.8861
+  Is similar: True (score: 88)
+  Perceptual hash distance: 30
+  CLIP cosine similarity:   0.6922
+  Is similar: False (score: 69)
+  Perceptual hash distance: 22
+  CLIP cosine similarity:   0.9557
+  Is similar: True (score: 95)
+  Perceptual hash distance: 22
+  CLIP cosine similarity:   0.9361
+  Is similar: True (score: 93)
+  Perceptual hash distance: 18
+  CLIP cosine similarity:   0.9462
+  Is similar: True (score: 94)
+  Perceptual hash distance: 16
+  CLIP cosine similarity:   0.9386
+  Is similar: True (score: 93)
+  Perceptual hash distance: 14
+  CLIP cosine similarity:   0.9265
+  Is similar: True (score: 92)
+  Failed to scan artwork 9: (sqlite3.IntegrityError) UNIQUE constraint failed: similar_artworks.artwork_id, similar_artworks.url
+[SQL: INSERT INTO similar_artworks (artwork_id, url, similarity_score, is_similar, time_scanned, status) VALUES (?, ?, ?, ?, ?, ?) RETURNING id]
+[parameters: (9, 'https://statics.tver.jp/images/content/thumbnail/episode/small/ep6groen61k.jpg?v=5', 84, 1, '2026-09-20 10:01:08.574574', 'new')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+  Perceptual hash distance: 24
+  CLIP cosine similarity:   0.8390
+  Is similar: True (score: 83)
+  Perceptual hash distance: 42
+  CLIP cosine similarity:   0.7517
+  Is similar: False (score: 75)
+  Perceptual hash distance: 28
+  CLIP cosine similarity:   0.7668
+  Is similar: False (score: 76)
+  Perceptual hash distance: 30
+  CLIP cosine similarity:   0.7627
+  Is similar: False (score: 76)
+  Perceptual hash distance: 32
+  CLIP cosine similarity:   0.7636
+  Is similar: False (score: 76)
+  Perceptual hash distance: 30
+  CLIP cosine similarity:   0.8062
+  Is similar: True (score: 80)
+  Perceptual hash distance: 32
+  CLIP cosine similarity:   0.7000
+  Is similar: False (score: 69)
+  Perceptual hash distance: 32
+  CLIP cosine similarity:   0.8170
+  Is similar: True (score: 81)
+Artwork 10: checked 8 candidates, saved matches above
+  Scanned artwork 10: 11 candidates
+  Perceptual hash distance: 32
+  CLIP cosine similarity:   0.9029
+  Is similar: True (score: 90)
+  Perceptual hash distance: 32
+  CLIP cosine similarity:   0.7829
+  Is similar: False (score: 78)
+  Perceptual hash distance: 34
+  CLIP cosine similarity:   0.8018
+  Is similar: True (score: 80)
+  Perceptual hash distance: 32
+  CLIP cosine similarity:   0.7506
+  Is similar: False (score: 75)
+  Perceptual hash distance: 34
+  CLIP cosine similarity:   0.8594
+  Is similar: True (score: 85)
+  Perceptual hash distance: 34
+  CLIP cosine similarity:   0.8229
+  Is similar: True (score: 82)
+  Perceptual hash distance: 36
+  CLIP cosine similarity:   0.7861
+  Is similar: False (score: 78)
+  Failed to scan artwork 11: (sqlite3.IntegrityError) UNIQUE constraint failed: similar_artworks.artwork_id, similar_artworks.url
+[SQL: INSERT INTO similar_artworks (artwork_id, url, similarity_score, is_similar, time_scanned, status) VALUES (?, ?, ?, ?, ?, ?) RETURNING id]
+[parameters: (11, 'https://m.gjcdn.net/fireside-post-image/900/40068078-k7va3api-v4.webp', 90, 1, '2026-09-20 10:01:26.254546', 'new')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+  Perceptual hash distance: 42
+  CLIP cosine similarity:   0.9383
+  Is similar: True (score: 93)
+  Perceptual hash distance: 40
+  CLIP cosine similarity:   0.9184
+  Is similar: True (score: 91)
+  Perceptual hash distance: 28
+  CLIP cosine similarity:   0.8917
+  Is similar: True (score: 89)
+  Perceptual hash distance: 36
+  CLIP cosine similarity:   0.9223
+  Is similar: True (score: 92)
+  Perceptual hash distance: 46
+  CLIP cosine similarity:   0.9041
+  Is similar: True (score: 90)
+  Perceptual hash distance: 40
+  CLIP cosine similarity:   0.9357
+  Is similar: True (score: 93)
+  Perceptual hash distance: 34
+  CLIP cosine similarity:   0.8977
+  Is similar: True (score: 89)
+  Perceptual hash distance: 46
+  CLIP cosine similarity:   0.9343
+  Is similar: True (score: 93)
+  Perceptual hash distance: 58
+  CLIP cosine similarity:   0.9431
+  Is similar: True (score: 94)
+  Failed to scan artwork 12: (sqlite3.IntegrityError) UNIQUE constraint failed: similar_artworks.artwork_id, similar_artworks.url
+[SQL: INSERT INTO similar_artworks (artwork_id, url, similarity_score, is_similar, time_scanned, status) VALUES (?, ?, ?, ?, ?, ?) RETURNING id]
+[parameters: (12, 'https://treble.ai/wp-content/uploads/2026/01/56904-TREBLE-GIF04-V1.gif', 89, 1, '2026-09-20 10:01:39.367274', 'new')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+  Perceptual hash distance: 0
+  CLIP cosine similarity:   0.9997
+  Is similar: True (score: 99)
+  Perceptual hash distance: 0
+  CLIP cosine similarity:   1.0000
+  Is similar: True (score: 100)
+  Perceptual hash distance: 0
+  CLIP cosine similarity:   0.9999
+  Is similar: True (score: 99)
+  Perceptual hash distance: 0
+  CLIP cosine similarity:   0.9997
+  Is similar: True (score: 99)
+  Perceptual hash distance: 22
+  CLIP cosine similarity:   0.9332
+  Is similar: True (score: 93)
+  Perceptual hash distance: 38
+  CLIP cosine similarity:   0.8895
+  Is similar: True (score: 88)
+  Perceptual hash distance: 0
+  CLIP cosine similarity:   0.9993
+  Is similar: True (score: 99)
+  Perceptual hash distance: 0
+  CLIP cosine similarity:   0.9999
+  Is similar: True (score: 99)
+  Perceptual hash distance: 0
+  CLIP cosine similarity:   0.9993
+  Is similar: True (score: 99)
+  Perceptual hash distance: 0
+  CLIP cosine similarity:   1.0000
+  Is similar: True (score: 99)
+  Perceptual hash distance: 32
+  CLIP cosine similarity:   0.9131
+  Is similar: True (score: 91)
+  Perceptual hash distance: 0
+  CLIP cosine similarity:   0.9999
+  Is similar: True (score: 99)
+  Perceptual hash distance: 0
+  CLIP cosine similarity:   1.0000
+  Is similar: True (score: 99)
+  Perceptual hash distance: 2
+  CLIP cosine similarity:   0.9952
+  Is similar: True (score: 99)
+  Perceptual hash distance: 0
+  CLIP cosine similarity:   0.9966
+  Is similar: True (score: 99)
+  Failed to scan artwork 14: (sqlite3.IntegrityError) UNIQUE constraint failed: similar_artworks.artwork_id, similar_artworks.url
+[SQL: INSERT INTO similar_artworks (artwork_id, url, similarity_score, is_similar, time_scanned, status) VALUES (?, ?, ?, ?, ?, ?) RETURNING id]
+[parameters: (14, 'https://i.pinimg.com/originals/d0/be/3b/d0be3ba23ff286f17962f1c7245ced4b.jpg?nii=t', 100, 1, '2026-09-20 10:01:51.390384', 'new')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+  Perceptual hash distance: 0
+  CLIP cosine similarity:   0.9997
+  Is similar: True (score: 99)
+  Perceptual hash distance: 0
+  CLIP cosine similarity:   1.0000
+  Is similar: True (score: 100)
+  Perceptual hash distance: 0
+  CLIP cosine similarity:   0.9999
+  Is similar: True (score: 99)
+  Perceptual hash distance: 0
+  CLIP cosine similarity:   0.9997
+  Is similar: True (score: 99)
+  Perceptual hash distance: 22
+  CLIP cosine similarity:   0.9332
+  Is similar: True (score: 93)
+  Perceptual hash distance: 38
+  CLIP cosine similarity:   0.8895
+  Is similar: True (score: 88)
+  Perceptual hash distance: 0
+  CLIP cosine similarity:   0.9993
+  Is similar: True (score: 99)
+  Perceptual hash distance: 2
+  CLIP cosine similarity:   0.9997
+  Is similar: True (score: 99)
+  Perceptual hash distance: 0
+  CLIP cosine similarity:   0.9999
+  Is similar: True (score: 99)
+  Perceptual hash distance: 0
+  CLIP cosine similarity:   0.9993
+  Is similar: True (score: 99)
+  Perceptual hash distance: 0
+  CLIP cosine similarity:   1.0000
+  Is similar: True (score: 99)
+  Perceptual hash distance: 32
+  CLIP cosine similarity:   0.9131
+  Is similar: True (score: 91)
+  Perceptual hash distance: 0
+  CLIP cosine similarity:   0.9999
+  Is similar: True (score: 99)
+  Perceptual hash distance: 2
+  CLIP cosine similarity:   0.9952
+  Is similar: True (score: 99)
+  Perceptual hash distance: 0
+  CLIP cosine similarity:   0.9966
+  Is similar: True (score: 99)
+  Failed to scan artwork 15: (sqlite3.IntegrityError) UNIQUE constraint failed: similar_artworks.artwork_id, similar_artworks.url
+[SQL: INSERT INTO similar_artworks (artwork_id, url, similarity_score, is_similar, time_scanned, status) VALUES (?, ?, ?, ?, ?, ?) RETURNING id]
+[parameters: (15, 'https://i.pinimg.com/originals/d0/be/3b/d0be3ba23ff286f17962f1c7245ced4b.jpg?nii=t', 100, 1, '2026-09-20 10:02:00.792833', 'new')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+  Perceptual hash distance: 0
+  CLIP cosine similarity:   0.9880
+  Is similar: True (score: 98)
+  Perceptual hash distance: 26
+  CLIP cosine similarity:   0.6054
+  Is similar: False (score: 60)
+  Perceptual hash distance: 0
+  CLIP cosine similarity:   0.9835
+  Is similar: True (score: 98)
+  Perceptual hash distance: 0
+  CLIP cosine similarity:   1.0000
+  Is similar: True (score: 99)
+  Perceptual hash distance: 24
+  CLIP cosine similarity:   0.9144
+  Is similar: True (score: 91)
+  Perceptual hash distance: 12
+  CLIP cosine similarity:   0.9444
+  Is similar: True (score: 94)
+  Perceptual hash distance: 30
+  CLIP cosine similarity:   0.6647
+  Is similar: False (score: 66)
+  Perceptual hash distance: 0
+  CLIP cosine similarity:   0.9971
+  Is similar: True (score: 99)
+  Perceptual hash distance: 30
+  CLIP cosine similarity:   0.6560
+  Is similar: False (score: 65)
+  Perceptual hash distance: 30
+  CLIP cosine similarity:   0.7208
+  Is similar: False (score: 72)
+  Perceptual hash distance: 30
+  CLIP cosine similarity:   0.6391
+  Is similar: False (score: 63)
+  Perceptual hash distance: 0
+  CLIP cosine similarity:   0.9881
+  Is similar: True (score: 98)
+  Perceptual hash distance: 12
+  CLIP cosine similarity:   0.9524
+  Is similar: True (score: 95)
+  Perceptual hash distance: 0
+  CLIP cosine similarity:   0.9850
+  Is similar: True (score: 98)
+  Perceptual hash distance: 32
+  CLIP cosine similarity:   0.6265
+  Is similar: False (score: 62)
+  Perceptual hash distance: 28
+  CLIP cosine similarity:   0.5980
+  Is similar: False (score: 59)
+  Perceptual hash distance: 22
+  CLIP cosine similarity:   0.8575
+  Is similar: True (score: 85)
+  Failed to scan artwork 23: (sqlite3.IntegrityError) UNIQUE constraint failed: similar_artworks.artwork_id, similar_artworks.url
+[SQL: INSERT INTO similar_artworks (artwork_id, url, similarity_score, is_similar, time_scanned, status) VALUES (?, ?, ?, ?, ?, ?) RETURNING id]
+[parameters: (23, 'https://i5.walmartimages.com/seo/Plinko-All-Weather-Game-Board-Set_2641c429-7234-48a1-8677-f76b7c898726.a0e7265941cdc138da2b673afe0ae200.jpeg?odnHeight=612&odnWidth=612&odnBg=FFFFFF', 98, 1, '2026-09-20 10:02:15.152799', 'new')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+  Perceptual hash distance: 24
+  CLIP cosine similarity:   0.7695
+  Is similar: False (score: 76)
+  Perceptual hash distance: 24
+  CLIP cosine similarity:   0.5019
+  Is similar: False (score: 50)
+  Perceptual hash distance: 24
+  CLIP cosine similarity:   0.4734
+  Is similar: False (score: 47)
+  Perceptual hash distance: 28
+  CLIP cosine similarity:   0.7204
+  Is similar: False (score: 72)
+  Perceptual hash distance: 34
+  CLIP cosine similarity:   0.7262
+  Is similar: False (score: 72)
+Artwork 30: checked 5 candidates, saved matches above
+  Scanned artwork 30: 10 candidates
+  Perceptual hash distance: 32
+  CLIP cosine similarity:   0.8005
+  Is similar: True (score: 80)
+  Perceptual hash distance: 26
+  CLIP cosine similarity:   0.7726
+  Is similar: False (score: 77)
+  Perceptual hash distance: 26
+  CLIP cosine similarity:   0.4787
+  Is similar: False (score: 47)
+  Perceptual hash distance: 30
+  CLIP cosine similarity:   0.7609
+  Is similar: False (score: 76)
+  Perceptual hash distance: 36
+  CLIP cosine similarity:   0.6999
+  Is similar: False (score: 69)
+  Perceptual hash distance: 36
+  CLIP cosine similarity:   0.7650
+  Is similar: False (score: 76)
+  Perceptual hash distance: 26
+  CLIP cosine similarity:   0.7633
+  Is similar: False (score: 76)
+  Perceptual hash distance: 34
+  CLIP cosine similarity:   0.7315
+  Is similar: False (score: 73)
+  Perceptual hash distance: 34
+  CLIP cosine similarity:   0.6097
+  Is similar: False (score: 60)
+Artwork 31: checked 9 candidates, saved matches above
+  Scanned artwork 31: 11 candidates

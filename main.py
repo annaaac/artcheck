@@ -145,6 +145,7 @@ async def get_artworks_list():
                 "id": a.id,
                 "filename": a.filename,
                 "user_id": a.user_id,
+                "time_uploaded": a.time_uploaded,
                 "match_count": total,
                 "new_match_count": new_count,
             })

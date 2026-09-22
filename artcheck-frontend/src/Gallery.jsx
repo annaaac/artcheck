@@ -122,16 +122,19 @@ function Gallery() {
 
                 <section id="images">
                     <div id="gallery-right">
-                        <h2>Artworks</h2>
+                        <h2>Your Gallery</h2>
                         <div class="images-container">
                             {artworks.map((artwork) => (
-                                <Link to={`/artworks/${artwork.id}`} key={artwork.id} className="link">
-                                    <img
-                                        src={`http://localhost:8000/artworks/${artwork.id}/image`}
-                                        alt={artwork.filename}
-                                        width={120}
-                                    />
-                                    <div>
+                                <div>
+                                    <Link to={`/artworks/${artwork.id}`} key={artwork.id} className="link">
+                                        <img
+                                            src={`http://localhost:8000/artworks/${artwork.id}/image?v=${artwork.time_uploaded}`}
+                                            alt={artwork.filename}
+                                            width={120}
+                                        />
+                                    </Link>
+
+                                    <div className="info">
                                         {scanStatuses[artwork.id] === "scanning" ? (
                                             <div className="status">Pending…</div>
                                         ) : artwork.match_count > 0 ? (
@@ -143,7 +146,7 @@ function Gallery() {
                                             <div className="badge">●</div>
                                         )}
                                     </div>
-                                </Link>
+                                </div>
                             ))}
                         </div>
                     </div>

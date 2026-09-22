@@ -78,6 +78,7 @@ function ArtworkDetail() {
             <div className="detail-container">
                 <div id="detail-left">
                     <img
+
                         src={`http://localhost:8000/artworks/${artworkId}/image`}
                         alt={`Artwork ${artworkId}`}
                     />
@@ -89,9 +90,8 @@ function ArtworkDetail() {
                 </div>
 
                 <div id="detail-right">
-                    <h2>Matches found</h2>
+                    <h2>{matches.length === 0 ? "No" : matches.length} matches found</h2>
                     {error && <p className="error">{error}</p>}
-                    {matches.length === 0 && <p>No matches found yet.</p>}
 
                     <div className="matches-container">
                         {matches.map((match) => (

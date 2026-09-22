@@ -17,11 +17,18 @@
     padding: 20px
 }
 
+/* artworks grid */
 #gallery-right {
     background-color: var(--bg);
     border-left: 2px solid var(--border-color, var(--border));
+
+    h2 {
+        text-align: left;
+        padding: 10px
+    }
 }
 
+/* upload form */
 #gallery-left {
     background-color: var(--bg);
 }
@@ -49,7 +56,7 @@
 }
 
 
-.images-container div {
+.images-container div.info {
     display: flex;
     justify-content: space-between;
     align-items: center;

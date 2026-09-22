@@ -3,17 +3,20 @@
 from sqlalchemy import create_engine, Column, ForeignKey, Integer, String, DateTime, LargeBinary, Boolean, UniqueConstraint
 from sqlalchemy.orm import declarative_base, sessionmaker
 from datetime import datetime, timezone
+import os
+from dotenv import load_dotenv
 
-DATABASE_URL = "sqlite:///artcheck.db"
+load_dotenv()
 
-engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
+DATABASE_URL = os.environ["DATABASE_URL"]
+engine = create_engine(DATABASE_URL)
+
 SessionLocal = sessionmaker(bind=engine)
 Base = declarative_base()
 
 
 class Artwork(Base):
     __tablename__ = "artworks"
-    __table_args__ = {"sqlite_autoincrement": True}
 
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(String, nullable=False)
@@ -27,7 +30,6 @@ class SimilarArtwork(Base):
     __tablename__ = "similar_artworks"
     __table_args__ = (
         UniqueConstraint("artwork_id", "url", name="uq_artwork_url"),
-        {"sqlite_autoincrement": True},
     )
 
     id = Column(Integer, primary_key=True, index=True)
