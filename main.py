@@ -40,7 +40,7 @@ vision_client = vision.ImageAnnotatorClient()
 UPLOADS_DIR = Path("uploads")
 UPLOADS_DIR.mkdir(exist_ok=True)
 
-#TODO ORGANIZE THESE ENDPOINTS BETTERRRRR TT
+#TODO ORGANIZE THESE ENDPOINTS BETTERRRRR
 
 
 class MatchStatusUpdate(BaseModel):
@@ -59,30 +59,6 @@ async def update_match_status(match_id: int, update: MatchStatusUpdate):
         match.status = update.status
         db.commit()
         return {"id": match.id, "status": match.status}
-    finally:
-        db.close()
-
-
-@app.delete("/artworks/{artwork_id}")
-async def delete_artwork(artwork_id: int):
-    db = SessionLocal()
-    try:
-        artwork = db.query(Artwork).filter(Artwork.id == artwork_id).first()
-        if not artwork:
-            raise HTTPException(status_code=404, detail=f"No artwork found with id: {artwork_id}")
-
-        # Delete associated matches first
-        db.query(SimilarArtwork).filter(SimilarArtwork.artwork_id == artwork_id).delete()
-
-        # Delete the artwork
-        db.delete(artwork)
-        db.commit()
-
-        # Optionally, delete the file from the filesystem
-        if Path(artwork.filepath).exists():
-            Path(artwork.filepath).unlink()
-
-        return {"id": artwork_id, "status": "deleted"}
     finally:
         db.close()
 
@@ -155,6 +131,36 @@ async def get_artworks_list():
         db.close()
 
 
+@app.get("/artworks/{artwork_id}")
+async def get_artwork(artwork_id: int):
+    db = SessionLocal()
+    try:
+        artwork = db.query(Artwork).filter(Artwork.id == artwork_id).first()
+        if not artwork:
+            raise HTTPException(status_code=404, detail=f"No artwork found with id: {artwork_id}")
+
+        total = db.query(SimilarArtwork).filter(
+            SimilarArtwork.artwork_id == artwork.id,
+            SimilarArtwork.status != "dismissed",
+        ).count()
+
+        new_count = db.query(SimilarArtwork).filter(
+            SimilarArtwork.artwork_id == artwork.id,
+            SimilarArtwork.status == "new",
+        ).count()
+
+        return {
+            "id": artwork.id,
+            "filename": artwork.filename,
+            "user_id": artwork.user_id,
+            "time_uploaded": artwork.time_uploaded.isoformat(),
+            "match_count": total,
+            "new_match_count": new_count,
+        }
+    finally:
+        db.close()
+
+
 @app.get("/artworks/{artwork_id}/image")
 async def get_artwork_image(artwork_id: int):
     db = SessionLocal()
@@ -163,6 +169,30 @@ async def get_artwork_image(artwork_id: int):
         if not artwork:
             raise HTTPException(status_code=404, detail=f"No artwork found with id: {artwork_id}")
         return FileResponse(artwork.filepath)
+    finally:
+        db.close()
+
+
+@app.delete("/artworks/{artwork_id}")
+async def delete_artwork(artwork_id: int):
+    db = SessionLocal()
+    try:
+        artwork = db.query(Artwork).filter(Artwork.id == artwork_id).first()
+        if not artwork:
+            raise HTTPException(status_code=404, detail=f"No artwork found with id: {artwork_id}")
+
+        # Delete associated matches first
+        db.query(SimilarArtwork).filter(SimilarArtwork.artwork_id == artwork_id).delete()
+
+        # Delete the artwork
+        db.delete(artwork)
+        db.commit()
+
+        # Optionally, delete the file from the filesystem
+        if Path(artwork.filepath).exists():
+            Path(artwork.filepath).unlink()
+
+        return {"id": artwork_id, "status": "deleted"}
     finally:
         db.close()
 

@@ -1,3 +1,5 @@
+// BUG: slow image loading
+
 import { useState, useEffect, useRef } from 'react'
 import { Link } from "react-router-dom"
 
@@ -130,7 +132,6 @@ function Gallery() {
                                         <img
                                             src={`http://localhost:8000/artworks/${artwork.id}/image?v=${artwork.time_uploaded}`}
                                             alt={artwork.filename}
-                                            width={120}
                                         />
                                     </Link>
 

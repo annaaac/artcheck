@@ -4,10 +4,24 @@ import { useParams, Link } from "react-router-dom";
 import './ArtworkDetail.css'
 
 function ArtworkDetail() {
+    // BUG: image preview incorrect. cachebust.
     const { artworkId } = useParams();
+    const [artwork, setArtwork] = useState();
     const [matches, setMatches] = useState([]);
     const [error, setError] = useState(null);
 
+    async function loadArtwork() {
+        try {
+            const response = await fetch(`http://localhost:8000/artworks/${artworkId}`);
+            if (!response.ok) {
+                throw new Error(`Server responded with ${response.status}`);
+            }
+            const data = await response.json();
+            setArtwork(data);
+        } catch (err) {
+            setError(err.message);
+        }
+    }
 
     async function deleteArtwork() {
         try {
@@ -56,6 +70,7 @@ function ArtworkDetail() {
 
 
     useEffect(() => {
+        loadArtwork();
         loadMatches();
 
         return () => {
@@ -77,11 +92,12 @@ function ArtworkDetail() {
 
             <div className="detail-container">
                 <div id="detail-left">
-                    <img
-
-                        src={`http://localhost:8000/artworks/${artworkId}/image`}
-                        alt={`Artwork ${artworkId}`}
-                    />
+                    {artwork && (
+                        <img
+                            src={`http://localhost:8000/artworks/${artworkId}/image?v=${artwork.time_uploaded}`}
+                            alt={`Artwork ${artworkId}`}
+                        />
+                    )}
                     <p>id: {artworkId}</p>
                     <br></br>
                     <button className="delete-button" onClick={() => deleteArtwork()}>
