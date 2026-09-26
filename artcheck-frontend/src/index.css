@@ -112,7 +112,7 @@ p {
 
 code,
 .delete-button {
-    color: red;
+    color: var(--alert);
 }
 
 code,

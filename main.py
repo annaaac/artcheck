@@ -10,6 +10,8 @@ from database import SimilarArtwork, SessionLocal, Artwork
 from scan import get_candidate_urls, run_scan
 from sqlalchemy import func
 from fastapi.middleware.cors import CORSMiddleware
+from storage import upload_blob, read_blob, delete_blob
+from fastapi import Response
 
 import requests
 import similarity
@@ -36,9 +38,6 @@ app.add_middleware(
 
 model, preprocess = similarity.load_clip_model()
 vision_client = vision.ImageAnnotatorClient()
-
-UPLOADS_DIR = Path("uploads")
-UPLOADS_DIR.mkdir(exist_ok=True)
 
 #TODO ORGANIZE THESE ENDPOINTS BETTERRRRR
 
@@ -85,9 +84,9 @@ async def register_artwork(user_id: str, file: UploadFile):
         db.refresh(artwork)
 
         extension = Path(file.filename).suffix or ".png"
-        file_path = UPLOADS_DIR / f"{artwork.id}{extension}"
-        with open(file_path, "wb") as f:
-            f.write(file_bytes)
+        file_path = f"artwork/{artwork.id}{extension}"
+
+        upload_blob(file_bytes, file_path)
 
         artwork.filepath = str(file_path)
         db.commit()
@@ -168,7 +167,9 @@ async def get_artwork_image(artwork_id: int):
         artwork = db.query(Artwork).filter(Artwork.id == artwork_id).first()
         if not artwork:
             raise HTTPException(status_code=404, detail=f"No artwork found with id: {artwork_id}")
-        return FileResponse(artwork.filepath)
+        image_bytes = read_blob(artwork.filepath)
+        image_extension = artwork.filepath.split(".")[-1]
+        return Response(content=image_bytes, media_type=f"image/{image_extension}")
     finally:
         db.close()
 
@@ -188,40 +189,38 @@ async def delete_artwork(artwork_id: int):
         db.delete(artwork)
         db.commit()
 
-        # Optionally, delete the file from the filesystem
-        if Path(artwork.filepath).exists():
-            Path(artwork.filepath).unlink()
+        delete_blob(artwork.filepath)
 
         return {"id": artwork_id, "status": "deleted"}
     finally:
         db.close()
 
 
-@app.post("/artworks/{artwork_id}/compare")
-async def compare_with_artwork(artwork_id: int, file: UploadFile):
-    db = SessionLocal()
+# @app.post("/artworks/{artwork_id}/compare")
+# async def compare_with_artwork(artwork_id: int, file: UploadFile):
+#     db = SessionLocal()
 
-    try:
-        artwork = db.query(Artwork).filter(Artwork.id == artwork_id).first()
-        if not artwork:
-            raise HTTPException(status_code=404, detail=f"No artwork found with id: {artwork_id}")
+#     try:
+#         artwork = db.query(Artwork).filter(Artwork.id == artwork_id).first()
+#         if not artwork:
+#             raise HTTPException(status_code=404, detail=f"No artwork found with id: {artwork_id}")
 
-        uploaded_image = Image.open(BytesIO(await file.read()))
-        stored_image = Image.open(artwork.filepath)
+#         uploaded_image = Image.open(BytesIO(await file.read()))
+#         stored_image = Image.open(artwork.filepath)
 
-        is_similar, similarity_score = similarity.compare_images(
-            uploaded_image, stored_image, model, preprocess
-        )
+#         is_similar, similarity_score = similarity.compare_images(
+#             uploaded_image, stored_image, model, preprocess
+#         )
 
-        return {
-            "artwork_id": artwork_id,
-            "artwork_filename": artwork.filename,
-            "is_similar": is_similar,
-            "similarity_score": similarity_score
-        }
+#         return {
+#             "artwork_id": artwork_id,
+#             "artwork_filename": artwork.filename,
+#             "is_similar": is_similar,
+#             "similarity_score": similarity_score
+#         }
 
-    finally:
-        db.close()
+#     finally:
+#         db.close()
 
 
 @app.post("/artworks/{artwork_id}/scan")
@@ -232,11 +231,8 @@ async def scan_artwork(artwork_id: int, background_tasks: BackgroundTasks):
         if not artwork:
             raise HTTPException(status_code=404, detail=f"No artwork found with id: {artwork_id}")
 
-        with open(artwork.filepath, "rb") as f:
-            content = f.read()
-
+        content = read_blob(artwork.filepath)
         candidate_urls = get_candidate_urls(vision_client, content)
-
         background_tasks.add_task(run_scan, artwork_id, candidate_urls, artwork.filepath, model, preprocess)
 
         return {"artwork_id": artwork_id, "status": "scan_started", "candidate_count": len(candidate_urls)}

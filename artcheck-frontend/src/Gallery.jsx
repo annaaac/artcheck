@@ -125,9 +125,9 @@ function Gallery() {
                 <section id="images">
                     <div id="gallery-right">
                         <h2>Your Gallery</h2>
-                        <div class="images-container">
+                        <div className="images-container">
                             {artworks.map((artwork) => (
-                                <div>
+                                <div key={artwork.id}>
                                     <Link to={`/artworks/${artwork.id}`} key={artwork.id} className="link">
                                         <img
                                             src={`http://localhost:8000/artworks/${artwork.id}/image?v=${artwork.time_uploaded}`}

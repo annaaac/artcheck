@@ -3,7 +3,7 @@ from io import BytesIO
 import requests
 from PIL import Image
 from google.cloud import vision
-
+from storage import read_blob
 from database import SessionLocal, SimilarArtwork
 import similarity
 
@@ -25,7 +25,9 @@ def get_candidate_urls(vision_client, image_bytes: bytes) -> list[str]:
 
 
 def run_scan(artwork_id: int, candidate_urls: list[str], stored_image_path: str, model, preprocess):
-    stored_image = Image.open(stored_image_path)
+    stored_image_bytes = read_blob(stored_image_path)
+    stored_image = Image.open(BytesIO(stored_image_bytes))
+    
     db = SessionLocal()
     try:
         checked_count = 0
