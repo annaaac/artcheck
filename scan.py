@@ -6,6 +6,7 @@ from google.cloud import vision
 from storage import read_blob
 from database import SessionLocal, SimilarArtwork
 import similarity
+from datetime import datetime, timezone
 
 
 def get_candidate_urls(vision_client, image_bytes: bytes) -> list[str]:
@@ -27,7 +28,7 @@ def get_candidate_urls(vision_client, image_bytes: bytes) -> list[str]:
 def run_scan(artwork_id: int, candidate_urls: list[str], stored_image_path: str, model, preprocess):
     stored_image_bytes = read_blob(stored_image_path)
     stored_image = Image.open(BytesIO(stored_image_bytes))
-    
+
     db = SessionLocal()
     try:
         checked_count = 0
@@ -47,14 +48,24 @@ def run_scan(artwork_id: int, candidate_urls: list[str], stored_image_path: str,
             if not is_similar:
                 continue
 
-            db.add(SimilarArtwork(
-                artwork_id=artwork_id,
-                url=url,
-                similarity_score=similarity_score,
-                is_similar=is_similar,
-            ))
+            existing = db.query(SimilarArtwork).filter_by(
+                artwork_id=artwork_id, url=url
+            ).first()
+
+            if existing:
+                existing.similarity_score = similarity_score
+                existing.time_scanned = datetime.now(timezone.utc)
+            
+            else:
+                db.add(SimilarArtwork(
+                    artwork_id=artwork_id,
+                    url=url,
+                    similarity_score=similarity_score,
+                    is_similar=is_similar,
+                ))
 
         db.commit()
         print(f"Artwork {artwork_id}: checked {checked_count} candidates, saved matches above")
+            
     finally:
         db.close()
